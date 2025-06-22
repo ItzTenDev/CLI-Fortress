@@ -1,4 +1,5 @@
 from math import *
+import modules.terminal as terminal
 
 ansi_notation = {
     # Formatting (unchanged)
@@ -94,8 +95,9 @@ def color_verificator() -> None:
     print(final_str)
 
 
-def printf(string: str, space_det : bool = True) -> None:
+def printf(string: str, space_det : bool = True, center : bool = False) -> None:
     str_out = string[:]
+    if center: str_out = terminal.center_str(str_out)
 
     for key in ansi_notation:
         value = ansi_notation[key]
@@ -105,4 +107,5 @@ def printf(string: str, space_det : bool = True) -> None:
             else : str_out = str_out.replace(key, value)
 
     print(str_out + "\033[0m")
+    
     return

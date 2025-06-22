@@ -5,9 +5,9 @@
         "args": [],
         "usage": "clear",
         "permission": 0,
-        "category": "admin",
-        "cmd_path": "commands/admin\\clear.py",
-        "import_path": "commands.admin.clear"
+        "category": "clif",
+        "cmd_path": "commands/clif\\clear.py",
+        "import_path": "commands.clif.clear"
     },
     "cos": {
         "name": "cos",
@@ -18,9 +18,31 @@
         ],
         "usage": "cos <sub-command> <args...>",
         "permission": 0,
-        "category": "admin",
-        "cmd_path": "commands/admin\\cli.py",
-        "import_path": "commands.admin.cli"
+        "category": "clif",
+        "cmd_path": "commands/clif\\cli.py",
+        "import_path": "commands.clif.cli"
+    },
+    "help": {
+        "name": "help",
+        "description": "allow you to see infos about commands",
+        "args": [
+            "command"
+        ],
+        "usage": "help <command>",
+        "permission": 0,
+        "category": "clif",
+        "cmd_path": "commands/clif\\help.py",
+        "import_path": "commands.clif.help"
+    },
+    "info": {
+        "name": "info",
+        "description": "I return pong as fast as possible !",
+        "args": [],
+        "usage": "info",
+        "permission": 0,
+        "category": "clif",
+        "cmd_path": "commands/clif\\info.py",
+        "import_path": "commands.clif.info"
     },
     "process": {
         "name": "process",
@@ -30,21 +52,54 @@
         ],
         "usage": "process <sub_command>",
         "permission": 0,
-        "category": "admin",
-        "cmd_path": "commands/admin\\process.py",
-        "import_path": "commands.admin.process"
+        "category": "clif",
+        "cmd_path": "commands/clif\\process.py",
+        "import_path": "commands.clif.process"
     },
-    "yipee": {
-        "name": "yipee",
-        "description": "Be proud of yourself !",
+    "circle": {
+        "name": "circle",
+        "description": "I allow you to draw a circle !",
         "args": [
-            "hapiness level"
+            "radius",
+            "thickness"
         ],
-        "usage": "yipee <hapiness level>",
+        "usage": "circle <radius> <thickness>",
         "permission": 0,
-        "category": "bring_joy",
-        "cmd_path": "commands/bring_joy\\yipee.py",
-        "import_path": "commands.bring_joy.yipee"
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\circle.py",
+        "import_path": "commands.test_bi.circle"
+    },
+    "colors": {
+        "name": "colors",
+        "description": "I allow you to check colors display !",
+        "args": [],
+        "usage": "colors",
+        "permission": 0,
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\colors.py",
+        "import_path": "commands.test_bi.colors"
+    },
+    "diagram": {
+        "name": "diagram",
+        "description": "I allow you to draw a circle !",
+        "args": [
+            "LETTER:VALUE"
+        ],
+        "usage": "diagram <LETTER:VALUE>",
+        "permission": 0,
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\diagram.py",
+        "import_path": "commands.test_bi.diagram"
+    },
+    "hello": {
+        "name": "hello",
+        "description": "I say hello !",
+        "args": [],
+        "usage": "hello",
+        "permission": 0,
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\hello.py",
+        "import_path": "commands.test_bi.hello"
     },
     "game-jdl": {
         "name": "game-jdl",
@@ -56,76 +111,9 @@
         ],
         "usage": "game-jdl <players> <dice(s)> <dice_faces>",
         "permission": 0,
-        "category": "games",
-        "cmd_path": "commands/games\\jdl.py",
-        "import_path": "commands.games.jdl"
-    },
-    "circle": {
-        "name": "circle",
-        "description": "I allow you to draw a circle !",
-        "args": [
-            "radius",
-            "thickness"
-        ],
-        "usage": "circle <radius> <thickness>",
-        "permission": 0,
-        "category": "test",
-        "cmd_path": "commands/test\\circle.py",
-        "import_path": "commands.test.circle"
-    },
-    "diagram": {
-        "name": "diagram",
-        "description": "I allow you to draw a circle !",
-        "args": [
-            "LETTER:VALUE"
-        ],
-        "usage": "diagram <LETTER:VALUE>",
-        "permission": 0,
-        "category": "test",
-        "cmd_path": "commands/test\\diagram.py",
-        "import_path": "commands.test.diagram"
-    },
-    "colors": {
-        "name": "colors",
-        "description": "I allow you to check colors display !",
-        "args": [],
-        "usage": "colors",
-        "permission": 0,
-        "category": "utility",
-        "cmd_path": "commands/utility\\colors.py",
-        "import_path": "commands.utility.colors"
-    },
-    "hello": {
-        "name": "hello",
-        "description": "I say hello !",
-        "args": [],
-        "usage": "hello",
-        "permission": 0,
-        "category": "utility",
-        "cmd_path": "commands/utility\\hello.py",
-        "import_path": "commands.utility.hello"
-    },
-    "help": {
-        "name": "help",
-        "description": "allow you to see infos about commands",
-        "args": [
-            "command"
-        ],
-        "usage": "help <command>",
-        "permission": 0,
-        "category": "utility",
-        "cmd_path": "commands/utility\\help.py",
-        "import_path": "commands.utility.help"
-    },
-    "info": {
-        "name": "info",
-        "description": "I return pong as fast as possible !",
-        "args": [],
-        "usage": "info",
-        "permission": 0,
-        "category": "utility",
-        "cmd_path": "commands/utility\\info.py",
-        "import_path": "commands.utility.info"
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\jdl.py",
+        "import_path": "commands.test_bi.jdl"
     },
     "ping": {
         "name": "ping",
@@ -135,8 +123,20 @@
         ],
         "usage": "ping <message>",
         "permission": 0,
-        "category": "utility",
-        "cmd_path": "commands/utility\\ping.py",
-        "import_path": "commands.utility.ping"
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\ping.py",
+        "import_path": "commands.test_bi.ping"
+    },
+    "yipee": {
+        "name": "yipee",
+        "description": "Be proud of yourself !",
+        "args": [
+            "hapiness level"
+        ],
+        "usage": "yipee <hapiness level>",
+        "permission": 0,
+        "category": "test_bi",
+        "cmd_path": "commands/test_bi\\yipee.py",
+        "import_path": "commands.test_bi.yipee"
     }
 }

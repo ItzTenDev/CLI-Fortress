@@ -65,7 +65,8 @@ def load_commands(_log: bool = False, error_sensitive: bool = False) -> int:
                     if _log: printf(("§a> §fLOADED : §r" + cmd_file_name), False)
                     loaded_cmd += 1
     
-    printf(("\n§a# §f" + str(loaded_cmd) + "§r Commands have been loaded ! "), False)
+    printf("\n")
+    printf(("§a# §f" + str(loaded_cmd) + "§r Commands have been loaded ! "), False, True)
     
     registered_cmd = register_commands()
 
@@ -87,7 +88,7 @@ def register_commands() -> int:
     with open("register\commands.json", "w") as outfile:
         outfile.write(cmd_to_json)
     
-    printf(("§a# §f" + str(register_cmd) + "§r Commands have been registered ! "), False)
+    printf(("§a# §f" + str(register_cmd) + "§r Commands have been registered ! "), False, True)
     command_register_cache = [] # Reset to save memory
     
     return register_cmd

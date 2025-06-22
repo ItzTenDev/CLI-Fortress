@@ -1,5 +1,4 @@
 import json
-import modules.terminal as terminal
 
 from modules.colored_terminal import *
 

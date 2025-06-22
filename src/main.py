@@ -2,16 +2,15 @@
 from modules.colored_terminal import *
 from datetime import *
 
-
 # Modules imports
 import modules.terminal as terminal
 import modules.json_edit as json_edit
 import handlers.command_handler as cmd_handler
-import importlib
-
+import os
 
 # Settings variables
 session_error_code = 0
+print(json_edit.read("register/session.json"))
 cli_previous_name = json_edit.read("register/session.json")["sys_name"]
 
 # To config as needed
@@ -23,10 +22,19 @@ session_ready_data = {
 json_edit.write("register/session.json", session_ready_data)
 
 
+ASCII_Title = [
+terminal.center_str(" ██████╗██╗     ██╗███████╗"),
+terminal.center_str("██╔════╝██║     ██║██╔════╝"),
+terminal.center_str("██║     ██║     ██║█████╗  "),
+terminal.center_str("██║     ██║     ██║██╔══╝  "),
+terminal.center_str("╚██████╗███████╗██║██║     "),
+terminal.center_str(" ╚═════╝╚══════╝╚═╝╚═╝     ")
+]
+
+
 # Terminal Preparation
 terminal.run_command("cls")
-printf("§6 Imagine tu viens de cook ce poulet intercontinental !")
-
+printf("\n".join(ASCII_Title))
 
 
 # Handling events and commmands
@@ -47,13 +55,13 @@ cmd_pc = 0 # Counts how many commands have been executed, regardless of the succ
 
 # Code starts here
 while True:
-    command_input = input("\n\033[97m>>> \033[0m")
+    command_input = input("\n\033[97m$ \033[0m")
     
     cmd_pc += 1
     
     if cmd_pc == max_cmd_pc: 
         terminal.run_command("cls")
-        print("\n\033[97m>>> \033[0m" + command_input)
+        print("\n\033[97m$ \033[0m" + command_input)
         cmd_pc = 0
         
     exection = cmd_handler.execute_cmd(command_input)

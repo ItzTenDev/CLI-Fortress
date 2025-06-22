@@ -13,6 +13,14 @@ def return_code(code: int):
     return
 
 
+# Centers a string on the current cmd size
+def center_str(string: str):
+    x_cmd_size = os.get_terminal_size().columns
+    
+    spacers = int((x_cmd_size - len(string)) // 2) * " "
+    return spacers + string + spacers
+    
+
 def run_command(command: str):
     try:
         os.system(command)

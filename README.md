@@ -17,6 +17,7 @@ It would be wierd to used tKinter for a CLI for example. But it is up to you. Wh
 ## Newest Features
 
 > This section will be modified each time there is a new thing. It won't show every single feature, just the new ones.
+
 So for now, it mostly has a command line system, which is the global thing, you can create custom commands and all. However, i need to create some global command system, like `[system/plugin] [command]` instead of directly having the command.
 You can go to `src/commands/your_category/...` and add a `custom.py` command. DO NOT, give command names that already exist, and you MUST follow the constructor syntax with the `export()` function.
 
@@ -26,5 +27,6 @@ I think the next thing i will add soon is a "root command" property so we can ad
 
 ## Other Files
 
-[Documentation](doc/DOCUMENTATION.md)
+[Documentation](doc/DOCUMENTATION.md) - SOON
+
 [TO-DO](TODO.md)
