@@ -1,0 +1,9 @@
+
+§e  .d8888b.       .d88888b.   .d8888b.            §e %slot_1_k% : §8 %slot_1_v%        §r 
+§e d88P""Y88b     d88P"""Y88b d88P""Y88b           §e %slot_2_k% : §8 %slot_2_v%        §r 
+§e 8M8    888     8M8     8M8 Y88b.                §e %slot_3_k% : §8 %slot_3_v%        §r 
+§e 8M8            8M8     8M8  "Y888b.             §e %slot_4_k% : §8 %slot_4_v%        §r 
+§e 8M8            8M8     8M8     "Y88b.           §e %slot_5_k% : §8 %slot_5_v%        §r 
+§e 8M8.  .888     8M8.   .8M8       "888           §e %slot_6_k% : §8 %slot_6_v%        §r 
+§e Y88buud88P .u. Y88buuud88P Y88b..d88P           §e %slot_7_k% : §8 %slot_7_v%        §r 
+§e  "Y8888P"  "8"  "Y88888P"   "Y8888P"            §e %slot_8_k% : §8 %slot_8_v%        §r 
