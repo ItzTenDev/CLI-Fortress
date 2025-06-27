@@ -1,3 +1,4 @@
+# VS Code settings (except useful project configs)
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -6,17 +7,60 @@
 !.vscode/*.code-snippets
 !*.code-workspace
 
-# Built Visual Studio Code Extensions
-*.vsix
-
-# Python cache files
+# Python cache and compiled files
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyd
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+*.manifest
+*.spec
 
 # Virtual environments
 venv/
 env/
+ENV/
+.venv/
+.env/
 
-# Git git files
+# Test and coverage outputs
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Git files
 .git/
+
+# IDEs and editors
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Misc
+*.bak
+*.swp
+*.tmp
+*.orig
