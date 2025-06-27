@@ -27,6 +27,6 @@ I think the next thing i will add soon is a "root command" property so we can ad
 
 ## Other Files
 
-[Documentation](doc/DOCUMENTATION.md) - SOON
+[Documentation](docs/DOCUMENTATION.md) - SOON
 
 [TO-DO](TODO.md)
