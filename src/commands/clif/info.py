@@ -17,7 +17,7 @@ def export() -> dict:
 
 # Must be in every single command files.
 def execute(user, args, database) -> None:
-    session_data = json.read("register/session.json")
+    session_data = json.read("data/register/session.json")
     
     display_cli("informations", {
         "%slot_1_k%": "System             ", "%slot_1_v%": session_data["sys_name"],

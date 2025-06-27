@@ -1,4 +1,3 @@
-from math import *
 from modules.colored_terminal import *
 
 import modules.json_edit as json_edit
@@ -12,7 +11,7 @@ command_register_cache = {} # Temporary registered commands
 
 # Scan and check if the command exists in the register
 def check_register(cmd_name: str) -> tuple:
-    with open("register\commands.json", "r") as infile:
+    with open(r"data\register\commands.json", "r") as infile:
         register  = json.load(infile)
 
     for cmd in register:
@@ -33,13 +32,13 @@ def check_existance(cmd_name: str) -> tuple:
 
 
 # Scan directory to load only the python scripts 
-def load_commands(_log: bool = False, error_sensitive: bool = False) -> int: 
+def load_commands(_log: bool = False, error_sensitive: bool = False) -> dict[str, int]: 
     loaded_cmd = 0
 
-    for (dir_paths, dir_names, files) in os.walk('commands'):
+    for (dir_paths, dir_names, files) in os.walk('src/commands'):
         for dir_name in dir_names:
             if dir_name == "__pycache__": continue
-            for entry in os.scandir('commands/' + dir_name):
+            for entry in os.scandir('src/commands/' + dir_name):
                 
                 cmd_category = dir_name
                                 
@@ -57,7 +56,7 @@ def load_commands(_log: bool = False, error_sensitive: bool = False) -> int:
                     if check_existance(exported_data["name"])[0]:
                         printf(("§c> §rCouldn't load " + cmd_file_name + " : " + exported_data["name"] + " already exists in §6" + check_existance(exported_data["name"])[1]), False)
                         
-                        if error_sensitive: return 1
+                        if error_sensitive: return {"loaded_cmd": loaded_cmd, "regstr_cmd": 0}
                         else: continue
 
                     command_register_cache[exported_data["name"]] = exported_data
@@ -85,7 +84,7 @@ def register_commands() -> int:
     
     cmd_to_json = json.dumps(command_register_cache, indent = 4)
 
-    with open("register\commands.json", "w") as outfile:
+    with open(r"data\register\commands.json", "w") as outfile:
         outfile.write(cmd_to_json)
     
     printf(("§a# §f" + str(register_cmd) + "§r Commands have been registered ! "), False, True)
@@ -95,14 +94,23 @@ def register_commands() -> int:
 
 
 # Execute command from name
-def execute_cmd(exe_cmd: str) -> int: # 3 : Command error
+def execute_cmd(exe_cmd: str) -> tuple[int, None | dict]: # 3 : Command error
     cmd_no_args = exe_cmd.split(" ")[0]
 
     if check_register(cmd_no_args)[0] == False: 
         terminal.return_code(304) # 04 : Not found
         return (304, None)
     
-    cmd_data = json_edit.read("register\commands.json")[next(filter(lambda d: d == cmd_no_args, json_edit.read("register\commands.json")), None)]
+    commands_json = json_edit.read(r"data\register\commands.json")
+    if not isinstance(commands_json, dict):
+        terminal.return_code(304)
+        return (304, None)
+    try:
+        cmd_key = next(filter(lambda d: d == cmd_no_args, commands_json))
+    except StopIteration:
+        terminal.return_code(304)
+        return (304, None)
+    cmd_data = commands_json[cmd_key]
     args = exe_cmd.split(" ")[1:]
 
     if len(args) < (len(cmd_data["args"])): return (301, cmd_data) # 01 : No args

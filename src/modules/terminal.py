@@ -5,11 +5,11 @@ import os
 
 
 def get_session():
-    return json_edit.read("register/session.json")
+    return json_edit.read("data/register/session.json")
 
 
 def return_code(code: int):
-    json_edit.set_property("register/session.json", {"previous_error_code": code})
+    json_edit.set_property("data/register/session.json", {"previous_error_code": code})
     return
 
 

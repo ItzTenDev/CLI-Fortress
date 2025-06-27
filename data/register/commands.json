@@ -6,7 +6,7 @@
         "usage": "clear",
         "permission": 0,
         "category": "clif",
-        "cmd_path": "commands/clif\\clear.py",
+        "cmd_path": "src/commands/clif\\clear.py",
         "import_path": "commands.clif.clear"
     },
     "cos": {
@@ -19,7 +19,7 @@
         "usage": "cos <sub-command> <args...>",
         "permission": 0,
         "category": "clif",
-        "cmd_path": "commands/clif\\cli.py",
+        "cmd_path": "src/commands/clif\\cli.py",
         "import_path": "commands.clif.cli"
     },
     "help": {
@@ -31,7 +31,7 @@
         "usage": "help <command>",
         "permission": 0,
         "category": "clif",
-        "cmd_path": "commands/clif\\help.py",
+        "cmd_path": "src/commands/clif\\help.py",
         "import_path": "commands.clif.help"
     },
     "info": {
@@ -41,7 +41,7 @@
         "usage": "info",
         "permission": 0,
         "category": "clif",
-        "cmd_path": "commands/clif\\info.py",
+        "cmd_path": "src/commands/clif\\info.py",
         "import_path": "commands.clif.info"
     },
     "process": {
@@ -53,7 +53,7 @@
         "usage": "process <sub_command>",
         "permission": 0,
         "category": "clif",
-        "cmd_path": "commands/clif\\process.py",
+        "cmd_path": "src/commands/clif\\process.py",
         "import_path": "commands.clif.process"
     },
     "circle": {
@@ -66,7 +66,7 @@
         "usage": "circle <radius> <thickness>",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\circle.py",
+        "cmd_path": "src/commands/test_bi\\circle.py",
         "import_path": "commands.test_bi.circle"
     },
     "colors": {
@@ -76,7 +76,7 @@
         "usage": "colors",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\colors.py",
+        "cmd_path": "src/commands/test_bi\\colors.py",
         "import_path": "commands.test_bi.colors"
     },
     "diagram": {
@@ -88,7 +88,7 @@
         "usage": "diagram <LETTER:VALUE>",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\diagram.py",
+        "cmd_path": "src/commands/test_bi\\diagram.py",
         "import_path": "commands.test_bi.diagram"
     },
     "hello": {
@@ -98,7 +98,7 @@
         "usage": "hello",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\hello.py",
+        "cmd_path": "src/commands/test_bi\\hello.py",
         "import_path": "commands.test_bi.hello"
     },
     "game-jdl": {
@@ -112,7 +112,7 @@
         "usage": "game-jdl <players> <dice(s)> <dice_faces>",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\jdl.py",
+        "cmd_path": "src/commands/test_bi\\jdl.py",
         "import_path": "commands.test_bi.jdl"
     },
     "ping": {
@@ -124,7 +124,7 @@
         "usage": "ping <message>",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\ping.py",
+        "cmd_path": "src/commands/test_bi\\ping.py",
         "import_path": "commands.test_bi.ping"
     },
     "yipee": {
@@ -136,7 +136,7 @@
         "usage": "yipee <hapiness level>",
         "permission": 0,
         "category": "test_bi",
-        "cmd_path": "commands/test_bi\\yipee.py",
+        "cmd_path": "src/commands/test_bi\\yipee.py",
         "import_path": "commands.test_bi.yipee"
     }
 }

@@ -19,7 +19,7 @@ def export() -> dict:
 # Must be in every single command files.
 def execute(user, args, database) -> None:
     argument = args[0]
-    command_data = json.read("register/commands.json")
+    command_data = json.read("data/register/commands.json")
     
     
     if argument == "all":

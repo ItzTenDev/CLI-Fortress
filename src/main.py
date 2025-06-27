@@ -9,8 +9,8 @@ import handlers.command_handler as cmd_handler
 
 # Settings variables
 session_error_code = 0
-print(json_edit.read("register/session.json"))
-session_data = json_edit.read("register/session.json")
+print(json_edit.read("data/register/session.json"))
+session_data = json_edit.read("data/register/session.json")
 if session_data is not None and "sys_name" in session_data:
     cli_previous_name: str = str(session_data["sys_name"])
 else:
@@ -22,7 +22,7 @@ session_ready_data = {
     "date": str(datetime.today())[0:9],
     "previous_error_code": session_error_code
 }
-json_edit.write("register/session.json", session_ready_data)
+json_edit.write("data/register/session.json", session_ready_data)
 
 
 ASCII_Title = [
@@ -45,14 +45,14 @@ command_handler = cmd_handler.load_commands()
 
 # Ensure command_handler is a dictionary before accessing keys
 if isinstance(command_handler, dict):
-    json_edit.set_property("register/session.json", {
+    json_edit.set_property("data/register/session.json", {
         "l_cmds": command_handler.get("loaded_cmd", 0), # Count of loaded commands
         "r_cmds": command_handler.get("regstr_cmd", 0), # Count of registered commands
         "l_events": 0, # Not available yet
         "r_events": 0, # Not available yet
     })
 else:
-    json_edit.set_property("register/session.json", {
+    json_edit.set_property("data/register/session.json", {
         "l_cmds": 0,
         "r_cmds": 0,
         "l_events": 0,
@@ -83,7 +83,9 @@ while True:
     if isinstance(exection, (list, tuple)) and len(exection) > 0:
         match exection[0]:
             case 304: printf(("§c# §r<<§f" + command_input + "§r>> is not recognized as an installed command."), False)
-            case 301: printf(("§c# §f" + command_input + "§r This command should be used : " + exection[1]["usage"] + " "), False)
+            case 301: 
+                usage_info = exection[1]["usage"] if (len(exection) > 1 and exection[1] is not None and isinstance(exection[1], dict) and "usage" in exection[1]) else ""
+                printf(("§c# §f" + command_input + "§r This command should be used : " + usage_info + " "), False)
     elif isinstance(exection, int):
         # Handle the case where exection is just an int (error code)
         if exection == 304:

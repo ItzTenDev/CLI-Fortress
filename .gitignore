@@ -8,3 +8,15 @@
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+env/
+
+# Git git files
+.git/
