@@ -1,4 +1,4 @@
-from math import *
+import math
 import modules.terminal as terminal
 
 ansi_notation = {
@@ -79,7 +79,12 @@ def print_color_samples(color_codes = ansi_notation):
         is_foreground = "38" in parts[0]
         color_type = "FG" if is_foreground else "BG"
         # Create colored block with padding
-        print(code + f"{"######" if color_type == "FG" else "      "}\033[0m {color_type} {key if color_type != "FG" else key + " "} | \033[38;2;85;85;85m RGB: {rgb}")
+        print(
+            code
+            + f"{'######' if color_type == 'FG' else '      '}\033[0m {color_type} "
+            + (key if color_type != 'FG' else key + ' ')
+            + f" | \033[38;2;85;85;85m RGB: {rgb}"
+        )
 
     print("\n\033[0m")  # Final reset
 

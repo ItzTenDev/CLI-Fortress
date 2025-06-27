@@ -1,7 +1,5 @@
 import json
 
-from modules.colored_terminal import *
-
 # Leave empty for reset
 def write(path: str, data = []) -> int:
     with open(path, "w") as outfile:
@@ -14,17 +12,19 @@ def read(path: str):
     try:
         with open(path, "r") as infile:
             return json.load(infile)
-    except: 
+    except:
+        from modules.colored_terminal import printf  # Local import avoids circular import at module level
         printf("§f" + path + "§r not found", False)
         return
     
 
 def set_property(path: str, new_value: dict):
 
-    data : dict = read(path)
+    data = read(path)
+    if data is None:
+        data = {}
     data.update(new_value)
 
     write(path, data)
     return 0
 
-    
