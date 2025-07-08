@@ -19,7 +19,6 @@ else:
 session_ready_data = {
     "sys_name": cli_previous_name,
     "date": str(datetime.today())[0:9],
-    "previous_error_code": session_error_code
 }
 json_edit.write("data/register/session.json", session_ready_data)
 
