@@ -1,5 +1,5 @@
 # Nameless imports for quick access
-from modules.colored_terminal import *
+from modules.formated_terminal import *
 from datetime import datetime
 
 # Modules imports

@@ -1,0 +1,10 @@
+{
+  "command_packs_dir": "data/commands_pck/",
+  "registers_dir": "data/registers/",
+  "plugins_dir": "data/plugins/",
+  "apps_dir": "data/apps/",
+
+  "messages_err_dir": "data/messages/errors.json",
+  "messages_info_dir": "data/messages/info.json",
+  "messages_warn_dir": "data/messages/warnings.json"
+}
