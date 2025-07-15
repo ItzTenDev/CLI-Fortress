@@ -2,7 +2,7 @@ import json
 
 # Leave empty for reset
 def write(path: str, data = []) -> int:
-    with open(path, "w") as outfile:
+    with open(path, "w", encoding="utf-8") as outfile:
         outfile.write(json.dumps(data, indent = 4))
 
     return 0
@@ -10,10 +10,10 @@ def write(path: str, data = []) -> int:
 # To read files into python
 def read(path: str) -> dict: 
     try:
-        with open(path, "r") as infile:
+        with open(path, "r", encoding="utf-8") as infile:
             return json.load(infile)
     except:
-        from modules.formated_terminal import printf  # Local import avoids circular import at module level
+        from src.modules.formated_terminal import printf  # Local import avoids circular import at module level
         printf("§f" + path + "§r not found", False)
         return {}
     

@@ -1,6 +1,6 @@
 import math 
-from modules.formated_terminal import *
-from modules.qk_diagrams import *
+from src.modules.formated_terminal import *
+from src.modules.qk_diagrams import *
 
 # Must be in every single command files.
 def export() -> dict:

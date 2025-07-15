@@ -1,7 +1,7 @@
 from math import *
 from random import *
-from modules.formated_terminal import *
-from modules.terminal import *
+from src.modules.formated_terminal import *
+from src.modules.terminal import *
 
 from time import *
 

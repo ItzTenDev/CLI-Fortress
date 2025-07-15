@@ -1,8 +1,7 @@
-from math import *
-from modules.formated_terminal import *
-from modules.cli_reader import *
+from src.modules.formated_terminal import *
+from src.modules.cli_reader import *
 
-import modules.json_edit as json
+import src.modules.json_edit as json
 
 # Must be in every single command files.
 def export() -> dict:

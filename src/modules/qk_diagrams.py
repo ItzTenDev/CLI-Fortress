@@ -1,6 +1,6 @@
 # Goal : Make easy Diagrams easily
 # For now : only sticks diagrams
-from modules.formated_terminal import *
+from src.modules.formated_terminal import *
 
 class Diagram:
     name_set = []

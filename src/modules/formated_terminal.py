@@ -107,7 +107,7 @@ def center_str(string: str):
     return spacers + string + spacers
 
 
-def printf(string: str, space_det : bool = True, center : bool = False) -> None:
+def printf(string: str, space_det : bool = True, center : bool = False, end_str: str = "\n") -> None:
     str_out = string[:]
     if center: str_out = center_str(str_out)
 
@@ -118,6 +118,6 @@ def printf(string: str, space_det : bool = True, center : bool = False) -> None:
             if space_det : str_out = str_out.replace(key + " ", value)
             else : str_out = str_out.replace(key, value)
 
-    print(str_out + "\033[0m")
+    print(str_out + "\033[0m", end=end_str)
     
     return

@@ -1,8 +1,7 @@
-from math import *
-from modules.formated_terminal import *
+from src.modules.formated_terminal import *
 
 import os
-import modules.terminal as terminal
+import src.modules.terminal as terminal
 
 
 # Must be in every single command files.

@@ -1,24 +1,22 @@
 from math import *
-from modules.formated_terminal import *
+from src.modules.formated_terminal import *
 
+import src.modules.terminal as terminal
 
 # Must be in every single command files.
 def export() -> dict:
-    name = "ping"
-    description = "I return pong as fast as possible !"
-    args = ["message"]
+    name = "clear"
+    description = "Executes the cls command in command prompt."
+    args = []
     usage = name + "".join([" <" + arg + ">" for arg in args])
     permission = 0 
-
+    
     return { "name" : name, "description" : description, "args" : args, "usage" : usage, "permission" : permission }
 
 
 # Must be in every single command files.
 def execute(user, args, database) -> None:
-
-    message = " ".join(args[0:])
-
-    def pong(string: str):
-        print(string)
-
-    pong(message)
+    terminal.run_command("cls")
+    
+    
+    

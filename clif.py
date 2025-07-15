@@ -1,4 +1,3 @@
-import modules.json_edit as json_edit
+import src.core as Core
 
-global_settings = json_edit.read("data/settings/global_settings.json")
-
+if __name__ == "__main__": Core.main()

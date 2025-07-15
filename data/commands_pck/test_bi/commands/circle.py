@@ -1,5 +1,5 @@
 import math 
-from modules.formated_terminal import *
+from src.modules.formated_terminal import *
 
 
 # Must be in every single command files.

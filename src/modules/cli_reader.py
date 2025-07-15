@@ -1,7 +1,7 @@
 from math import *
-from modules.formated_terminal import *
+from src.modules.formated_terminal import *
 
-import modules.terminal as terminal
+import src.modules.terminal as terminal
 import linecache
 
 def get_cli(cli_name: str) -> list:
