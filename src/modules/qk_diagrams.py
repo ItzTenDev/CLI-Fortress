@@ -1,6 +1,6 @@
 # Goal : Make easy Diagrams easily
 # For now : only sticks diagrams
-from modules.colored_terminal import *
+from src.modules.formated_terminal import *
 
 class Diagram:
     name_set = []
@@ -13,7 +13,7 @@ class Diagram:
         self.data_set = data_set
         self.name_set = name_set
     
-    def calc_aprox_delta(self) -> int:
+    def calc_aprox_delta(self) -> None:
         delta_s = 0
         
         data_set_copy = self.data_set[:]

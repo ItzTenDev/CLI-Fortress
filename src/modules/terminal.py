@@ -1,20 +1,57 @@
-from modules.colored_terminal import *
+from src.modules.formated_terminal import *
 
-import modules.json_edit as json_edit
+import src.modules.json_edit as json_edit
 import os
 
 
-def get_session():
-    return json_edit.read("register/session.json")
+global_settings = json_edit.read("data/settings/global_settings.json")
 
 
-def return_code(code: int):
-    json_edit.set_property("register/session.json", {"previous_error_code": code})
-    return
+# This module allows the user to control a bit more of the terminal it self
+# This module also allows the use to print out notifications in a consistent manner instead of having manual prints all over the code.
+# 
+# Version : v1.0.0
 
 
+# ------------------------------------------- Terminal Usage ------------------------------------------- 
+
+
+# Runs a real command from the OS itself (TO ONLY DO IN WINDOWS FOR NOW!!)
 def run_command(command: str):
     try:
         os.system(command)
     except:
-        printf("§cERROR §r: This command does exist, or you have made a mistake writting it", False)
+        printf("§cERROR §r: This command does exist, or you have made a mistake writing it", False)
+
+
+# --------------------------------------- Terminal Notifications --------------------------------------- 
+
+
+# Prints an error based on its ID. (Funny)
+def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> None:
+    messages : dict = json_edit.read(global_settings["messages_err_directory"])
+    message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
+
+    for k in placeholders: message = message.replace(k, placeholders[k])
+
+    if msg_id in messages: printf("§c> ERROR: " + msg_id + " §r- §f" + message, False)
+    if deadly: exit()
+
+# Prints an warning based on its ID. (Funny)
+def print_success(msg_id: str, placeholders: dict = {}) -> None:
+    messages : dict = json_edit.read(global_settings["messages_success_directory"])
+    message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
+
+    for k in placeholders: message = message.replace(k, placeholders[k])
+
+    if msg_id in messages: printf("§2> SUCCESS §r- §f" + message, False)
+
+
+# Prints an warning based on its ID. (Funny)
+def print_warn(msg_id: str, placeholders: dict = {}) -> None:
+    messages : dict = json_edit.read(global_settings["messages_warn_directory"])
+    message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
+
+    for k in placeholders: message = message.replace(k, placeholders[k])
+
+    if msg_id in messages: printf("§6> WARNING: " + msg_id + " §r- §f" + message, False)
