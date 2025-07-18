@@ -11,5 +11,9 @@
   "messages_err_directory": "data/messages/errors.json",
   "messages_info_directory": "data/messages/info.json",
   "messages_warn_directory": "data/messages/warnings.json",
-  "messages_success_directory": "data/messages/success.json"
+  "messages_success_directory": "data/messages/success.json",
+
+  "__execution__": { 
+    "prefix_symbol": "$"
+  }
 }
