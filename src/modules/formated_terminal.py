@@ -1,62 +1,210 @@
 import os
+from rich.text import Text
 
 ansi_notation = {
-    # Formatting (unchanged)
-    '§r': '\033[0m',   # RESET
+    # === Text formatting (style only, no color) ===
+    '§r': '\033[0m',   # Reset all attributes
     '§l': '\033[1m',   # Bold
-    '§k': '\033[2m',   # Faint
+    '§k': '\033[2m',   # Faint (less bright)
     '§o': '\033[3m',   # Italic
     '§n': '\033[4m',   # Underline
-    '§p': '\033[5m',   # Blink
-    '§v': '\033[7m',   # Negative
+    '§p': '\033[5m',   # Blink (slow)
+    '§v': '\033[7m',   # Inverted / Negative
     '§m': '\033[9m',   # Strikethrough
 
-    # Red spectrum (softer variants)
-    '§4': '\033[38;2;196;77;77m',    # Soft Dark Red
-    '§4b': '\033[48;2;196;77;77m',   # Background
-    '§c': '\033[38;2;255;136;136m',  # Soft Bright Red
-    '§cb': '\033[48;2;255;136;136m', # Background
+    # === Red spectrum ===
+    '§4db': '\033[48;2;98;38;38m',    # Darker variant (background)
+    '§4d': '\033[38;2;98;38;38m',     # Darker variant (foreground)
+    '§4b': '\033[48;2;196;77;77m',    # Background: Soft Dark Red
+    '§4': '\033[38;2;196;77;77m',     # Foreground: Soft Dark Red
 
-    # Orange/Yellow spectrum
-    '§6': '\033[38;2;255;196;77m',   # Soft Gold
-    '§6b': '\033[48;2;255;196;77m',  # Background
-    '§e': '\033[38;2;255;255;136m',  # Soft Yellow
-    '§eb': '\033[48;2;255;255;136m', # Background
+    '§cdb': '\033[48;2;128;68;68m',   # Darker variant (background)
+    '§cd': '\033[38;2;128;68;68m',    # Darker variant (foreground)
+    '§cb': '\033[48;2;255;136;136m',  # Background: Soft Bright Red
+    '§c': '\033[38;2;255;136;136m',   # Foreground: Soft Bright Red
 
-    # Green spectrum
-    '§2': '\033[38;2;77;196;77m',    # Soft Dark Green
-    '§2b': '\033[48;2;77;196;77m',   # Background
-    '§a': '\033[38;2;136;255;136m',  # Soft Bright Green
-    '§ab': '\033[48;2;136;255;136m', # Background
+    # === Orange / Yellow spectrum ===
+    '§6db': '\033[48;2;128;98;38m',
+    '§6d': '\033[38;2;128;98;38m',    # Darker variant
+    '§6b': '\033[48;2;255;196;77m',   # Background: Soft Gold
+    '§6': '\033[38;2;255;196;77m',    # Foreground: Soft Gold
 
-    # Blue spectrum
-    '§1': '\033[38;2;77;77;196m',    # Soft Dark Blue
-    '§1b': '\033[48;2;77;77;196m',   # Background
-    '§9': '\033[38;2;136;136;255m',  # Soft Bright Blue
-    '§9b': '\033[48;2;136;136;255m', # Background
+    '§edb': '\033[48;2;128;128;68m',
+    '§ed': '\033[38;2;128;128;68m',   # Darker variant
+    '§eb': '\033[48;2;255;255;136m',  # Background: Soft Yellow
+    '§e': '\033[38;2;255;255;136m',   # Foreground: Soft Yellow
 
-    # Cyan spectrum
-    '§3': '\033[38;2;77;196;196m',  # Soft Dark Cyan
-    '§3b': '\033[48;2;77;196;196m', # Background
-    '§b': '\033[38;2;136;255;255m', # Soft Bright Cyan
-    '§bb': '\033[48;2;136;255;255m',# Background
+    # === Green spectrum ===
+    '§2db': '\033[48;2;38;98;38m',
+    '§2d': '\033[38;2;38;98;38m',     # Darker variant
+    '§2b': '\033[48;2;77;196;77m',    # Background
+    '§2': '\033[38;2;77;196;77m',     # Foreground: Soft Dark Green
 
-    # Purple/Magenta spectrum
-    '§5': '\033[38;2;196;77;196m',  # Soft Dark Magenta
-    '§5b': '\033[48;2;196;77;196m', # Background
-    '§d': '\033[38;2;255;136;255m', # Soft Bright Magenta
-    '§db': '\033[48;2;255;136;255m',# Background
+    '§adb': '\033[48;2;68;128;68m',
+    '§ad': '\033[38;2;68;128;68m',    # Darker variant
+    '§ab': '\033[48;2;136;255;136m',  # Background
+    '§a': '\033[38;2;136;255;136m',   # Foreground: Soft Bright Green
 
-    # Grayscale (softened)
-    '§0': '\033[38;2;77;77;77m',     # Soft Black
-    '§0b': '\033[48;2;77;77;77m',    # Background
-    '§8': '\033[38;2;136;136;136m',  # Soft Dark Gray
-    '§8b': '\033[48;2;136;136;136m', # Background
-    '§7': '\033[38;2;196;196;196m',  # Soft Light Gray
-    '§7b': '\033[48;2;196;196;196m', # Background
-    '§f': '\033[38;2;255;255;255m',  # White (unchanged)
-    '§fb': '\033[48;2;255;255;255m'  # Background
+    # === Blue spectrum ===
+    '§1db': '\033[48;2;38;38;98m',
+    '§1d': '\033[38;2;38;38;98m',     # Darker variant
+    '§1b': '\033[48;2;77;77;196m',    # Background
+    '§1': '\033[38;2;77;77;196m',     # Foreground: Soft Dark Blue
+
+    '§9db': '\033[48;2;68;68;128m',
+    '§9d': '\033[38;2;68;68;128m',    # Darker variant
+    '§9b': '\033[48;2;136;136;255m',  # Background
+    '§9': '\033[38;2;136;136;255m',   # Foreground: Soft Bright Blue
+
+    # === Cyan spectrum ===
+    '§3db': '\033[48;2;38;98;98m',
+    '§3d': '\033[38;2;38;98;98m',     # Darker variant
+    '§3b': '\033[48;2;77;196;196m',   # Background
+    '§3': '\033[38;2;77;196;196m',    # Foreground: Soft Dark Cyan
+
+    '§bdb': '\033[48;2;68;128;128m',
+    '§bd': '\033[38;2;68;128;128m',   # Darker variant
+    '§bb': '\033[48;2;136;255;255m',  # Background
+    '§b': '\033[38;2;136;255;255m',   # Foreground: Soft Bright Cyan
+
+    # === Purple / Magenta spectrum ===
+    '§5db': '\033[48;2;98;38;98m',
+    '§5d': '\033[38;2;98;38;98m',     # Darker variant
+    '§5b': '\033[48;2;196;77;196m',   # Background
+    '§5': '\033[38;2;196;77;196m',    # Foreground: Soft Dark Magenta
+
+    '§ddb': '\033[48;2;128;68;128m',
+    '§dd': '\033[38;2;128;68;128m',   # Darker variant
+    '§db': '\033[48;2;255;136;255m',  # Background
+    '§d': '\033[38;2;255;136;255m',   # Foreground: Soft Bright Magenta
+
+    # === Grayscale ===
+    '§0db': '\033[48;2;38;38;38m',
+    '§0d': '\033[38;2;38;38;38m',     # Darker Soft Black
+    '§0b': '\033[48;2;77;77;77m',
+    '§0': '\033[38;2;77;77;77m',      # Soft Black
+
+    '§8db': '\033[48;2;68;68;68m',
+    '§8d': '\033[38;2;68;68;68m',
+    '§8b': '\033[48;2;136;136;136m',
+    '§8': '\033[38;2;136;136;136m',   # Soft Dark Gray
+
+    '§7db': '\033[48;2;98;98;98m',
+    '§7d': '\033[38;2;98;98;98m',
+    '§7b': '\033[48;2;196;196;196m',
+    '§7': '\033[38;2;196;196;196m',   # Soft Light Gray
+
+    '§fdb': '\033[48;2;128;128;128m',
+    '§fd': '\033[38;2;128;128;128m',  # Dark White (neutral gray)
+    '§fb': '\033[48;2;255;255;255m',
+    '§f': '\033[38;2;255;255;255m',   # Pure White
 }
+
+
+
+def gradient(colors, steps):
+    if len(colors) < 2:
+        raise ValueError("At least two colors are required.")
+    
+    segments = len(colors) - 1
+    if steps % segments != 0:
+        raise ValueError("Steps must be divisible by the number of color transitions (len(colors) - 1).")
+    
+    steps_per_segment = steps // segments
+    gradient = []
+
+    for i in range(segments):
+        r1, g1, b1 = colors[i]
+        r2, g2, b2 = colors[i + 1]
+        
+        for step in range(steps_per_segment):
+            t = step / (steps_per_segment - 1) if steps_per_segment > 1 else 0
+            r = int(r1 + (r2 - r1) * t)
+            g = int(g1 + (g2 - g1) * t)
+            b = int(b1 + (b2 - b1) * t)
+            gradient.append((r, g, b))  # Return raw RGB here
+    
+    return gradient
+
+
+def printg(text: str, colors: list[tuple[int, int, int]], center: bool = False) -> str:
+    if len(colors) < 2:
+        raise ValueError("At least two colors are required.")
+    
+    steps = len(text)
+    segments = len(colors) - 1
+
+    if steps % segments != 0:
+        raise ValueError("Text length must be divisible by the number of color transitions (len(colors) - 1).")
+    
+    steps_per_segment = steps // segments
+    result = []
+
+    for i in range(segments):
+        r1, g1, b1 = colors[i]
+        r2, g2, b2 = colors[i + 1]
+
+        for step in range(steps_per_segment):
+            t = step / (steps_per_segment - 1) if steps_per_segment > 1 else 0
+            r = int(r1 + (r2 - r1) * t)
+            g = int(g1 + (g2 - g1) * t)
+            b = int(b1 + (b2 - b1) * t)
+
+            char_index = i * steps_per_segment + step
+            char = text[char_index]
+            result.append(f"\033[38;2;{r};{g};{b}m{char}\033[0m")
+    
+    output = center_str(''.join(result)) if center else ''.join(result)
+
+    print(output)
+    return output
+
+FONT = {
+    "A": ["   ▓▓▄   ", "  ▓▓▓█   ", " ▓▓█▓▓█  ", "▓▓▓▓▓▓█  ", "▓▓███▓▓█ ", " ██   ██ "],
+    "B": ["▓▓▓▓▓▓▄  ", "▓▓███▓▓▄ ", "▓▓▓▓▓▓██ ", "▓▓███▓▓▄ ", "▓▓▓▓▓▓██ ", " ██████  "],
+    "C": [" ▓▓▓▓▓▓▄ ", "▓▓██████ ", "▓▓█      ", "▓▓█      ", " ▓▓▓▓▓▓▄ ", "  ██████ "],
+    "D": ["▓▓▓▓▓▓▄  ", "▓▓███▓▓▄ ", "▓▓█  ▓▓█ ", "▓▓█  ▓▓█ ", "▓▓▓▓▓▓██ ", " ██████  "],
+    "E": ["▓▓▓▓▓▓▓▄ ", "▓▓██████ ", "▓▓▓▓▓▄   ", "▓▓████   ", "▓▓▓▓▓▓▓▄ ", " ███████ "],
+    "F": ["▓▓▓▓▓▓▓▄ ", "▓▓██████ ", "▓▓▓▓▓▄   ", "▓▓████   ", "▓▓█      ", " ██      "],
+    "G": [" ▓▓▓▓▓▓▄ ", "▓▓██████ ", "▓▓█  ▓▓▓▄", "▓▓█   ▓▓█", " ▓▓▓▓▓▓██", "  ██████ "],
+    "H": ["▓▓▄  ▓▓▄ ", "▓▓█  ▓▓█ ", "▓▓▓▓▓▓▓█ ", "▓▓███▓▓█ ", "▓▓█  ▓▓█ ", " ██   ██ "],
+    "I": ["▓▓▄ ", "▓▓█ ", "▓▓█ ", "▓▓█ ", "▓▓█ ", " ██ "],
+    "J": ["     ▓▓▄", "     ▓▓█", "     ▓▓█", "▓▓   ▓▓█", " ▓▓▓▓▓██", "  █████ "],
+    "K": ["▓▓▄  ▓▓▄ ", "▓▓█ ▓▓██ ", "▓▓▓▓▓██  ", "▓▓██▓▓▄  ", "▓▓█  ▓▓▄ ", " ██   ██ "],
+    "L": ["▓▓▄      ", "▓▓█      ", "▓▓█      ", "▓▓█      ", "▓▓▓▓▓▓▓▄ ", " ███████ "],
+    "M": ["▓▓▓▄   ▓▓▓▄", "▓▓▓▓▄ ▓▓▓▓█", "▓▓█▓▓▓▓█▓▓█", "▓▓█ ▓▓██▓▓█", "▓▓█  ██ ▓▓█", " ██      ██"],
+    "N": ["▓▓▓▄   ▓▓▄", "▓▓▓▓▄  ▓▓█", "▓▓█▓▓▄ ▓▓█", "▓▓█ ▓▓▄▓▓█", "▓▓█  ▓▓▓▓█", " ██   ████"],
+    "O": [" ▓▓▓▓▓▓▄ ", "▓▓████▓▓▄", "▓▓█   ▓▓█", "▓▓█   ▓▓█", " ▓▓▓▓▓▓██", "  ██████ "],
+    "P": ["▓▓▓▓▓▓▄  ", "▓▓███▓▓▄ ", "▓▓▓▓▓▓██ ", "▓▓█████  ", "▓▓█      ", " ██      "],
+    "Q": [" ▓▓▓▓▓▓▄ ", "▓▓████▓▓▄", "▓▓█   ▓▓█", "▓▓█▄▓▓▓█ ", " ▓▓▓▓▓▓█ ", "  ██ ██ "],
+    "R": ["▓▓▓▓▓▓▄  ", "▓▓███▓▓▄ ", "▓▓▓▓▓▓██ ", "▓▓███▓▓▄ ", "▓▓█  ▓▓█ ", " ██   ██ "],
+    "S": ["▓▓▓▓▓▓▓▄ ", "▓▓██████ ", "▓▓▓▓▓▓▓▄ ", " ████▓▓█ ", "▓▓▓▓▓▓▓█ ", " ███████ "],
+    "T": ["▓▓▓▓▓▓▓▓▄", " ██▓▓████", "   ▓▓█   ", "   ▓▓█   ", "   ▓▓█   ", "    ██   "],
+    "U": ["▓▓▄   ▓▓▄", "▓▓█   ▓▓█", "▓▓█   ▓▓█", "▓▓█   ▓▓█", " ▓▓▓▓▓▓██", "  ██████ "],
+    "V": ["▓▓▄   ▓▓▄", "▓▓█   ▓▓█", "▓▓█   ▓▓█", " ▓▓▄ ▓▓██", "  ▓▓▓▓██ ", "   ████  "],
+    "W": ["▓▓▄    ▓▓▄", "▓▓█    ▓▓█", "▓▓█ ▓▄ ▓▓█", "▓▓█▓▓▓▄▓▓█", " ▓▓▓█▓▓▓██", "  ███ ███ "],
+    "X": ["▓▓▄  ▓▓▄", " ▓▓▄▓▓██", "  ▓▓▓██ ", " ▓▓█▓▓▄ ", "▓▓██ ▓▓▄", " ██   ██"],
+    "Y": ["▓▓▄   ▓▓▄", " ▓▓▄ ▓▓██", "  ▓▓▓▓██ ", "   ▓▓██  ", "   ▓▓█   ", "    ██   "],
+    "Z": ["▓▓▓▓▓▓▓▄", " ██▓▓▓██", "  ▓▓▓██ ", " ▓▓▓██  ", "▓▓▓▓▓▓▓▄", " ███████"],
+    " ": ["        ", "        ", "        ", "        ", "        ", "        "]
+}
+
+
+def escape_length(string: str) -> int:
+    return len(Text.from_ansi(string).plain)
+
+
+def ascii_text(text, font=FONT):
+    text = text.upper()
+    lines = [""] * 6
+    for char in text:
+        if char not in font:
+            raise ValueError(f"Character '{char}' not in font.")
+        glyph = font[char]
+        for i in range(6):
+            lines[i] += glyph[i]
+    return lines
+
 
 def print_color_samples(color_codes = ansi_notation):
     print("    Colors    |         RGB")
@@ -88,23 +236,26 @@ def print_color_samples(color_codes = ansi_notation):
     print("\n\033[0m")  # Final reset
 
 
-def color_verificator() -> None:
-    final_str = ""
-    index = 0
-    for i in ansi_notation:
-        if index % 2 != 0: final_str += ansi_notation[i] + "#\n\033[0m"
-        else: final_str += ansi_notation[i] + "#\033[0m"
-        index += 1
-        
-    print(final_str)
-
-
 # Centers a string on the current terminal size
-def center_str(string: str):
+def center_str(string: str, ratio: int = 1):
     x_cmd_size = os.get_terminal_size().columns
     
-    spacers = int((x_cmd_size - len(string)) // 2) * " "
-    return spacers + string + spacers
+    spacers = int((x_cmd_size - escape_length(string)) // (2*ratio)) * " "
+
+    return spacers + string
+
+
+def colorf(string: str, space_det : bool = True, center : bool = False) -> str:
+    str_out = string[:]
+
+    for key in ansi_notation:
+        value = ansi_notation[key]
+
+        if key in string:
+            if space_det : str_out = str_out.replace(key + " ", value)
+            else : str_out = str_out.replace(key, value)
+
+    return center_str(str_out + "\033[0m") if center else (str_out + "\033[0m")
 
 
 def printf(string: str, space_det : bool = True, center : bool = False, end_str: str = "\n") -> None:
@@ -118,6 +269,49 @@ def printf(string: str, space_det : bool = True, center : bool = False, end_str:
             if space_det : str_out = str_out.replace(key + " ", value)
             else : str_out = str_out.replace(key, value)
 
-    print(str_out + "\033[0m", end=end_str)
+    print(center_str(str_out + "\033[0m") if center else (str_out + "\033[0m"), end=end_str)
     
-    return
+
+def darken_color(rgb, factor=0.35):
+    """Darken an RGB color by a factor (default 35%)"""
+    return tuple(max(0, int(c * factor)) for c in rgb)
+
+def get_ascii( text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀", "█", "█", "▄", "█"), darkening_factor: float = 0.2) -> list[str]:
+    ascii_lines = ascii_text(text)
+    height = len(ascii_lines)
+
+    # Get one gradient color per row (as RGB tuples)
+    row_colors = gradient(colors, height)
+
+    result_lines = []
+    for y, line in enumerate(ascii_lines):
+        r, g, b = row_colors[y]
+        result_line = ""
+        for char in line:
+            if char == " ":
+                result_line += " "
+            elif char in shadow_chars:
+                dr, dg, db = darken_color((r, g, b), factor=(1 - darkening_factor))
+                result_line += f"\033[38;2;{dr};{dg};{db}m{char}\033[0m"
+            else:
+                result_line += f"\033[38;2;{r};{g};{b}m{char}\033[0m"
+        result_lines.append(result_line)
+
+    return result_lines
+
+
+def callout(content:str = "hello world", icon: str = "", main: str = "§e", second: str = "*"):
+    background = main + "db" if second == "*" else second
+    p = main + background
+    callout_box = [
+        p + "╭" + "─"*(len(content) + 2 + len(icon)) + "╮§r",
+        p + "│ " + icon + p + "§f" + content + p + " │§r",
+        p + "╰" + "─"*(len(content) + 2 + len(icon)) + "╯§r"]
+    
+    printf("\n".join(callout_box), False)
+
+
+if __name__ == "__main__":
+    callout("This is a cool callout", "\uf120  ", "§c")
+
+

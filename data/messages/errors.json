@@ -1,4 +1,9 @@
 {
-  "CLIF_DEFAULT.CMD_PACK_DIR_NOT_FOUND": "The command pack directory does not exist. Please check the path in the global settings."
+  "CLIF_DEFAULT.CMD_PACK_DIR_NOT_FOUND": "The command pack directory does not exist. Please check the path in the global settings.",
+  
+  "CLIF_DEFAULT.CMD_PACK_PATH_NOT_FOUND": "The command pack §6%pack_path% does not exist. Please check the command pack's directory.",
+  "CLIF_DEFAULT.CMD_PACK_DATA_NOT_FOUND": "The file data.json does not exist for §6%pack_path%. Please ensure it has one.",
+  "CLIF_DEFAULT.CMD_PACK_NOT_REGISTERED": "The command pack §6%pack_path% is not registered. Please register it before unpacking it.",
 
+  "CLIF_BUILT_IN.MODULES.PINS.PRESET_NOT_FOUND": "The pin preset §6%preset% does not exist. Please check the presets in the pins module."
 }

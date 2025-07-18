@@ -27,6 +27,11 @@ def run_command(command: str):
 # --------------------------------------- Terminal Notifications --------------------------------------- 
 
 
+# Chars
+# ◉ ◯ ◎
+# ● ○
+
+
 # Prints an error based on its ID. (Funny)
 def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> None:
     messages : dict = json_edit.read(global_settings["messages_err_directory"])
@@ -34,7 +39,7 @@ def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> Non
 
     for k in placeholders: message = message.replace(k, placeholders[k])
 
-    if msg_id in messages: printf("§c> ERROR: " + msg_id + " §r- §f" + message, False)
+    if msg_id in messages: printf("§c● ERROR: §l§f" + msg_id + " §r- §f" + message, False)
     if deadly: exit()
 
 # Prints an warning based on its ID. (Funny)
@@ -44,7 +49,7 @@ def print_success(msg_id: str, placeholders: dict = {}) -> None:
 
     for k in placeholders: message = message.replace(k, placeholders[k])
 
-    if msg_id in messages: printf("§2> SUCCESS §r- §f" + message, False)
+    if msg_id in messages: printf("§2● SUCCESS §r- §f" + message, False)
 
 
 # Prints an warning based on its ID. (Funny)
@@ -54,4 +59,4 @@ def print_warn(msg_id: str, placeholders: dict = {}) -> None:
 
     for k in placeholders: message = message.replace(k, placeholders[k])
 
-    if msg_id in messages: printf("§6> WARNING: " + msg_id + " §r- §f" + message, False)
+    if msg_id in messages: printf("§6●  WARNING: §l§f" + msg_id + " §r- §f" + message, False)

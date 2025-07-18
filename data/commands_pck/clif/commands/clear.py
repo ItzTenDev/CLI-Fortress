@@ -1,4 +1,3 @@
-from math import *
 from src.modules.formated_terminal import *
 
 import src.modules.terminal as terminal

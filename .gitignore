@@ -14,6 +14,7 @@ __pycache__/
 *.pyo
 *.pyd
 *.so
+*$py.class
 
 # Distribution / packaging
 build/
@@ -30,6 +31,9 @@ env/
 ENV/
 .venv/
 .env/
+
+# Personal
+TODO.md
 
 # Test and coverage outputs
 htmlcov/
