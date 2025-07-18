@@ -3,17 +3,37 @@
   "registers_directory": "data/registers/",
   "plugins_directory": "data/plugins/",
   "apps_directory": "data/apps/",
-
   "commands_rgstr_directory": "data/registers/commands.json",
   "commands_pck_regstr_directory": "data/registers/command_packs.json",
   "events_rgstr_directory": "data/registers/events.json",
-
   "messages_err_directory": "data/messages/errors.json",
   "messages_info_directory": "data/messages/info.json",
   "messages_warn_directory": "data/messages/warnings.json",
   "messages_success_directory": "data/messages/success.json",
 
-  "__execution__": { 
-    "prefix_symbol": "$"
+  "__execution.display.data__": {
+    "name": "CLIF",
+    "subtitle": "Command Line Interface Fortress",
+    "description": "A command line interface for managing and executing commands, plugins, and applications.",
+    "license": "MIT",
+    "git_repository": "",
+    "version": "1.0.0",
+    "authors": [
+      "ItzTen",
+      "Wiliwow"
+    ],
+    "prefix_symbol": "\uf120 "
+  },
+  
+  "__execution.display.config__": {
+    "display_name": true,
+    "display_subtitle": true,
+    "display_description": false,
+    "display_license": false,
+    "display_git_repository": false,
+    "display_version": true,
+    "display_authors": false,
+    "display_prefix_symbol": true,
+    "display_handlers_log": true
   }
 }
