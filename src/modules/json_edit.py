@@ -14,7 +14,7 @@ def read(path: str) -> dict:
             return json.load(infile)
     except:
         from src.modules.formated_terminal import printf  # Local import avoids circular import at module level
-        printf("§f" + path + "§r not found", False)
+        printf("§f" + repr(path) + "§r not found", False)
         return {}
     
 

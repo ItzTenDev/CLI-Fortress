@@ -13,10 +13,10 @@
 
   "__execution.display.data__": {
     "name": "CLIF",
-    "subtitle": "Command Line Interface Fortress",
+    "subtitle": "© 2025 - Command Line Interface Fortress",
     "description": "A command line interface for managing and executing commands, plugins, and applications.",
     "license": "MIT",
-    "git_repository": "",
+    "git_repository": "https.github.com/ItzTen/CLI-Fortress",
     "version": "1.0.0",
     "authors": [
       "ItzTen",
@@ -28,11 +28,11 @@
   "__execution.display.config__": {
     "display_name": true,
     "display_subtitle": true,
-    "display_description": false,
-    "display_license": false,
-    "display_git_repository": false,
+    "display_description": true,
+    "display_license": true,
+    "display_git_repository": true,
     "display_version": true,
-    "display_authors": false,
+    "display_authors": true,
     "display_prefix_symbol": true,
     "display_handlers_log": true
   }
