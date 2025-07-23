@@ -15,6 +15,7 @@ __pycache__/
 *.pyd
 *.so
 *$py.class
+.pycache/*
 
 # Distribution / packaging
 build/

@@ -6,6 +6,7 @@ from src.modules.pins import *
 import src.modules.terminal as terminal
 
 import src.handlers.command_handler as command_handler
+import src.handlers.plugin_handler as plugin_handler
 import src.modules.json_edit as json_edit
 
 
@@ -24,11 +25,12 @@ def main():
     execution_display_data      = global_settings["__execution.display.data__"]
     execution_display_config    = global_settings["__execution.display.config__"]
 
+
     # Print Settings
     name            = execution_display_data["name"]
     subtitle        = execution_display_data["subtitle"]
     description     = execution_display_data["description"]
-    repo_license         = execution_display_data["license"]
+    repo_license    = execution_display_data["license"]
     git_repository  = execution_display_data["git_repository"]
     version         = execution_display_data["version"]
     authors         = execution_display_data["authors"]
@@ -61,16 +63,17 @@ def main():
         for author in authors: pin_stack.append(pin_format("repo.author", {"%github.user.name%": author}))
     
     printf("\n\n".join(pin_display(pin_stack, 5)) + "\n", False)
-
     
 
     # Handling events and commmands
-    command_handler.register_command_packs([])
+    plugin_handler.register_plugins([])
     command_handler.register_commands([])
+
 
     # Handle input
     print("")
     display_prefix_symbol   = execution_display_config["display_prefix_symbol"]
+
 
     while True:
         # Terminal Styling
@@ -85,5 +88,24 @@ def main():
         terminal_size = os.get_terminal_size()
 
         input_command = input(int((terminal_size.columns - len(terminal_box[1])) // 2) * " " + "\033[1A" * 2 + f"│ {exec_symbol if display_prefix_symbol else ""} ")
+
+
+        # Execution
+        err = True
+        print()
+        print()
+
+        if not err:
+            try:
+                command_handler.execute_command(input_command)
+            except:
+                terminal.print_err("CLIF_DEFAULT.ABSTRACT_SOMETHING_WENT_WRONG")
+        else:
+            command_handler.execute_command(input_command)
+
+
+        pause = input("\n-> Press (Enter to continue):")
+        
+        
 
         

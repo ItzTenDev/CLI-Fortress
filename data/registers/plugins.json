@@ -1,0 +1,8 @@
+{
+    "__list__": [
+        "data.plugins.clif",
+        "data.plugins.fun_knee"
+    ],
+    "clif": "data.plugins.clif",
+    "FK": "data.plugins.fun_knee"
+}

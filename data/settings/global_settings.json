@@ -1,11 +1,12 @@
 {
-  "command_packs_directory": "data/commands_pck/",
-  "registers_directory": "data/registers/",
   "plugins_directory": "data/plugins/",
+  "registers_directory": "data/registers/",
   "apps_directory": "data/apps/",
+
   "commands_rgstr_directory": "data/registers/commands.json",
-  "commands_pck_regstr_directory": "data/registers/command_packs.json",
+  "plugins_rgstr_directory": "data/registers/plugins.json",
   "events_rgstr_directory": "data/registers/events.json",
+
   "messages_err_directory": "data/messages/errors.json",
   "messages_info_directory": "data/messages/info.json",
   "messages_warn_directory": "data/messages/warnings.json",

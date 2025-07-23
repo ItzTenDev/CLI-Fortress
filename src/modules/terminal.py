@@ -35,7 +35,7 @@ def run_command(command: str):
 # Prints an error based on its ID. (Funny)
 def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> None:
     messages : dict = json_edit.read(global_settings["messages_err_directory"])
-    message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
+    message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]) - 5)
 
     for k in placeholders: message = message.replace(k, placeholders[k])
 
