@@ -6,9 +6,16 @@ import src.modules.terminal as terminal
 def export() -> dict:
     description = "Executes the cls command in command prompt."
     args = []
-    permission = 0 
+    sub_commands = {}
+    permission = 0
     
-    return { "description" : description, "args" : args, "permission" : permission }
+    return { 
+        "description" : description, 
+        "args" : args, 
+        "sub_commands": sub_commands,
+        "permission" : permission 
+        }
+
 
 
 # Must be in every single command files.

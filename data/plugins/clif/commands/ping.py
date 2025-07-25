@@ -5,9 +5,15 @@ from src.modules.formated_terminal import *
 def export() -> dict:
     description = "I return pong as fast as possible !"
     args = ["r:message"]
-    permission = 0 
-
-    return { "description" : description, "args" : args, "permission" : permission }
+    sub_commands = {}
+    permission = 0
+    
+    return { 
+        "description" : description, 
+        "args" : args, 
+        "sub_commands": sub_commands,
+        "permission" : permission 
+        }
 
 
 # Must be in every single command files.

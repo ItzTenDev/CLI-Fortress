@@ -167,23 +167,19 @@ def execute_command(input_command: str) -> None:
         
     # Get the input data
     positional_parsing = shlex.split(input_command)
+    plugin_prefix = positional_parsing[0]
+
 
     if len(positional_parsing) < 2:
-        terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": "ba"})
+        terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
         return
-
-    plugin_prefix = positional_parsing[0]
-    command = positional_parsing[1]
-    arguments = positional_parsing[2:]
-    
-    optional_arguments = optional_argument_maper(arguments)
-    required_arguments = [arguments[index] for index in range(len(arguments)) if arguments[index] not in optional_arguments]
 
 
     if plugin_prefix not in plugins_register:
         terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
         return
     
+    command = positional_parsing[1]
     pathload = ".".join([plugins_register[plugin_prefix], "commands", command])
 
 
@@ -193,7 +189,15 @@ def execute_command(input_command: str) -> None:
         return
     
     command_import = command_register[pathload]
+
+    is_sub_command = (len(positional_parsing) > 2) and (positional_parsing[2] in command_import["sub_commands"])
+    arguments = positional_parsing[3 if is_sub_command else 2:]
     
+    optional_arguments = optional_argument_maper(arguments)
+    required_arguments = [arguments[index] for index in range(len(arguments)) if arguments[index] not in optional_arguments]
+
+    command_import = command_import["sub_commands"][positional_parsing[2]] if is_sub_command else command_import
+
     if len(required_arguments) < len([arg for arg in command_import["args"] if arg.startswith("r:")]):
         terminal.print_err("CLIF_DEFAULT.EXECUTION.CMD_ARGUMENT_LACKING", placeholders={
             "%cmd_name%": plugin_prefix + " " + command,
@@ -201,9 +205,10 @@ def execute_command(input_command: str) -> None:
             })
         return
 
+    pathload = pathload.replace(f"commands.{command}", f"commands.{command_import["pathload_name"]}") if is_sub_command else pathload
 
     # Execute the command
-    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"pathload": pathload, "name": command})
+    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"pathload": pathload, "name": command, "data": command_import})
     
     
     return

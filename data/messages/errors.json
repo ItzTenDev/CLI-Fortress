@@ -8,6 +8,7 @@
   "CLIF_DEFAULT.CMD_NAME_HAS_SPACE": "The command name§6 %cmd_name%§f contains spaces. Please use underscores (_) instead.",
   "CLIF_DEFAULT.CMD_ARGS_LACK_PREFIX": "The command arguments of the command§6 %cmd_name%§f does not have a prefix. Please use 'r:' & 'o:' for argument's requiredness",
   "CLIF_DEFAULT.CMD_ARGS_REQUIREDNESS_ORDER_INVALID": "The command arguments of the command§6 %cmd_name%§f have an invalid order of requiredness. Please ensure that optional arguments come after required ones.",
+  "CLIF.COMMAND.PLUGIN$NEW.PLUGIN_ALREADY_EXIST": "The plugin§6 %plugin_name%§f already exists. Please choose a different name.",
 
   "CLIF_DEFAULT.ABSTRACT_SOMETHING_WENT_WRONG": "An unexpected error occurred. Please check the logs for more details.",
 
