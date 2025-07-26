@@ -16,7 +16,7 @@ def export() -> dict:
         },
         "delete": {
             "description": "Deletes an existing plugin permanently",
-            "args": ["o:--name", "o:--id"],
+            "args": ["r:name"],
             "permission": 0,
             "pathload_name": "$plugin delete"
         },

@@ -1,21 +1,17 @@
 {
   "CLIF_DEFAULT.PLUGIN_DIR_NOT_FOUND": "The plugin directory does not exist. Please check the path in the global settings.",
-  
   "CLIF_DEFAULT.PLUGIN_PATH_NOT_FOUND": "The plugin§6 %pack_path%§f does not exist. Please check the plugin's directory.",
   "CLIF_DEFAULT.PLUGIN_DATA_NOT_FOUND": "The file data.json does not exist for§6 %pack_path%.§f Please ensure it has one.",
   "CLIF_DEFAULT.PLUGIN_NOT_REGISTERED": "The plugin§6 %pack_path%§f is not registered. Please register it before unpacking it.",
-  
   "CLIF_DEFAULT.CMD_NAME_HAS_SPACE": "The command name§6 %cmd_name%§f contains spaces. Please use underscores (_) instead.",
   "CLIF_DEFAULT.CMD_ARGS_LACK_PREFIX": "The command arguments of the command§6 %cmd_name%§f does not have a prefix. Please use 'r:' & 'o:' for argument's requiredness",
   "CLIF_DEFAULT.CMD_ARGS_REQUIREDNESS_ORDER_INVALID": "The command arguments of the command§6 %cmd_name%§f have an invalid order of requiredness. Please ensure that optional arguments come after required ones.",
   "CLIF.COMMAND.PLUGIN$NEW.PLUGIN_ALREADY_EXIST": "The plugin§6 %plugin_name%§f already exists. Please choose a different name.",
-
+  "CLIF.COMMAND.PLUGIN$DELETE.PLUGIN_PATH_NOT_FOUND": "The plugin§6 %pack_path%§f does not exist. Please check the plugin's directory.",
   "CLIF_DEFAULT.ABSTRACT_SOMETHING_WENT_WRONG": "An unexpected error occurred. Please check the logs for more details.",
-
   "CLIF_DEFAULT.EXECUTION.CMD_NOT_FOUND": "The command§6 %cmd_name%§f does not exist. Please check the command name.",
   "CLIF_DEFAULT.EXECUTION.CMD_ARGUMENT_LACKING": "The command§6 %cmd_name%§f requires an argument. Please provide the necessary argument.\n§6 %cmd_name% §8%usage%",
   "CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND": "The plugin prefix§6 %pack_prefix%§f does not exist. Please check the plugin's prefix.",
-  
 
   "CLIF_BUILT_IN.MODULES.PINS.PRESET_NOT_FOUND": "The pin preset§6 %preset%§f does not exist. Please check the presets in the pins module."
 }
