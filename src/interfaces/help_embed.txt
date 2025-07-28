@@ -1,7 +1,0 @@
-
-%color% | §r %icon% §f §l %title% §r 
-%color% | §7 Description : §r %description% §r 
-%color% | §7 Usage : §r %usage% §r 
-%color% | §7 Category : §r %category% §r 
-%color% | §r 
-%color% | §8 %footer% §r 

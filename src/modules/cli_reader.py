@@ -4,10 +4,10 @@ import src.modules.terminal as terminal
 import linecache
 
 def get_cli(cli_name: str) -> list:
-    return linecache.getlines("interfaces/" + cli_name + ".txt")
+    return linecache.getlines("src/interfaces/" + cli_name + ".txt")
 
 
-def display_cli(cli_name: str, with_data: dict):
+def display_cli(cli_name: str, with_data: dict = {}):
     cli = get_cli(cli_name)
     full_print = ""
     

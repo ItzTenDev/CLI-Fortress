@@ -1,6 +1,7 @@
 # Nameless imports for quick access
 from src.modules.formated_terminal import *
 from src.modules.pins import *
+from random import randint
 
 # Modules imports
 import src.modules.terminal as terminal
@@ -51,7 +52,8 @@ def clif_display():
     
     # Terminal Preparation
     terminal.run_command("cls")
-    colors = [(0, 255, 255), (255, 0, 255)]
+
+    colors = [(10 , 86, 163), (0, 204, 204)]
 
     if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors, darkening_factor=0.5)]) + "\n")
     if display_subtitle: printf("§8" + subtitle + "\n", True)

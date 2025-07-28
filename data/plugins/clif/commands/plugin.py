@@ -20,6 +20,12 @@ def export() -> dict:
             "permission": 0,
             "pathload_name": "$plugin delete"
         },
+        "help": {
+            "description": "Check informations about a plugin's command",
+            "args": ["r:plugin", "o:--command", "o:--c"],
+            "permission": 0,
+            "pathload_name": "$plugin help"
+        },
     }
     permission = 0
     

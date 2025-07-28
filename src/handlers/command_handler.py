@@ -205,10 +205,11 @@ def execute_command(input_command: str) -> None:
             })
         return
 
+    root_pathload = pathload
     pathload = pathload.replace(f"commands.{command}", f"commands.{command_import["pathload_name"]}") if is_sub_command else pathload
 
     # Execute the command
-    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"pathload": pathload, "name": command, "data": command_import})
+    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"root": root_pathload, "pathload": pathload, "name": command, "data": command_import})
     
     
     return

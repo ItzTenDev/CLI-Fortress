@@ -1,0 +1,14 @@
+
+╭───────────╮   
+│           │   %c%Command    :§f %cmd% §r
+│           │   %c%File       :§f %file% §r
+│           │   %c%Plugin     :§f %plugin% §r
+│           │   %c%Permission :§f %perm% §r
+╰───────────╯   
+
+> §8%description% §r
+
+
+§0This command is the default command to see commands informations. Therefore, it only uses the built-in properties of CLIF. 
+§0Feel free to create your own help print which you will soon be able to specify the location in the data.json of your plugins.
+§0For now, you can also simply create your own help command. §r
