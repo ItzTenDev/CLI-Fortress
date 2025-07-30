@@ -116,5 +116,5 @@ def main():
             command_handler.execute_command(input_command)
 
 
-        print('-> Press "Space" to continue...')
-        keyboard.wait('space')
+        input('-> Press "Enter" to continue...')
+        

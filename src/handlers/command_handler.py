@@ -175,12 +175,12 @@ def execute_command(input_command: str) -> None:
         return
 
 
-    if plugin_prefix not in plugins_register:
+    if plugin_prefix not in plugins_register["__prefix__"]:
         terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
         return
     
     command = positional_parsing[1]
-    pathload = ".".join([plugins_register[plugin_prefix], "commands", command])
+    pathload = ".".join([plugins_register["__prefix__"][plugin_prefix], "commands", command])
 
 
     # Check the input data

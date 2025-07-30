@@ -2,5 +2,7 @@
   "name": "CLI-Fortress",
   "prefix": "clif",
   "description": "Some default commands",
-  "author": "ItzTen"
+  "author": ["ItzTen"],
+  "id": "clif",
+  "version": "1.0.0"
 }
