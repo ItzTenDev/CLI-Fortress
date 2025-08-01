@@ -1,7 +1,6 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import src.modules.json_edit as json_edit
-import src.modules.terminal as terminal
+from files import json_edit
 
 import time
 import importlib
@@ -29,7 +28,7 @@ def pathfetch(exceptions: list[str] = []) -> dict:
         }
 
     if not os.path.exists(plugin_directory): # Check if the given path in the settings acctually exist
-        terminal.print_err("CLIF_DEFAULT.PLUGIN_DIR_NOT_FOUND", True)
+        print_err("CLIF_DEFAULT.PLUGIN_DIR_NOT_FOUND", True)
         return {}
         
     for (dir_path, dir_names, file_names) in os.walk(plugin_directory):
@@ -56,15 +55,15 @@ def load_commands(override: list[str] = [], exceptions: list[str] = []) -> list[
         plugin_path = plugin.replace(".", "/")
         
         if not os.path.exists(plugin_path): # Does the path exist
-            terminal.print_err("CLIF_DEFAULT.PLUGIN_PATH_NOT_FOUND", False, {"%pack_path%": plugin})
+            print_err("CLIF_DEFAULT.PLUGIN_PATH_NOT_FOUND", False, {"%pack_path%": plugin})
             continue;
 
         if not os.path.exists(plugin_path + "/data.json"): # Does data.json exist
-            terminal.print_err("CLIF_DEFAULT.PLUGIN_DATA_NOT_FOUND", False, {"%pack_path%": plugin})
+            print_err("CLIF_DEFAULT.PLUGIN_DATA_NOT_FOUND", False, {"%pack_path%": plugin})
             continue;
     
         if not os.path.exists(plugin_path + "/commands"): # Does the command dir exist
-            terminal.print_warn("CLIF_DEFAULT.CMD_PCK_WITHOUT_CMDS", placeholders= {"%pack_name%": plugin})
+            print_warn("CLIF_DEFAULT.CMD_PCK_WITHOUT_CMDS", placeholders= {"%pack_name%": plugin})
             continue;
     
         for entry in os.listdir(plugin_path + "/commands"): # Iterate to find commands
@@ -83,7 +82,7 @@ def register_plugin(exceptions : list[str] = []) -> None:
     pathloads = pathfetch(exceptions)
 
     json_edit.write(register_path, pathloads)
-    terminal.print_success("CLIF_DEFAULT.PLUGINS_REGISTERED", placeholders= {"%registered_plugin_count%": str(len(pathloads) - 1)})
+    print_success("CLIF_DEFAULT.PLUGINS_REGISTERED", placeholders= {"%registered_plugin_count%": str(len(pathloads) - 1)})
     
 
 
@@ -113,7 +112,7 @@ def register_commands(exceptions : list[str] = [], process_time: float = 0) -> N
         for arg in command_data["args"]:
 
             if not arg.startswith("r:") and not arg.startswith("o:"):
-                terminal.print_err("CLIF_DEFAULT.CMD_ARGS_LACK_PREFIX", placeholders={"%cmd_name%": str(command_name)})
+                print_err("CLIF_DEFAULT.CMD_ARGS_LACK_PREFIX", placeholders={"%cmd_name%": str(command_name)})
                 nested_continue = True
                 break;
         
@@ -122,13 +121,13 @@ def register_commands(exceptions : list[str] = [], process_time: float = 0) -> N
 
         # Check if the position requiredness is valid
         if not valid_positional_requiredness(command_data["args"]):
-            terminal.print_err("CLIF_DEFAULT.CMD_ARGS_REQUIREDNESS_ORDER_INVALID", placeholders={"%cmd_name%": command_name})
+            print_err("CLIF_DEFAULT.CMD_ARGS_REQUIREDNESS_ORDER_INVALID", placeholders={"%cmd_name%": command_name})
             continue;
 
 
         local_command_register[pathload] = command_data
 
-    terminal.print_success("CLIF_DEFAULT.CMDS_REGISTERED", placeholders= {"%registered_cmd_count%": str(register_count)})
+    print_success("CLIF_DEFAULT.CMDS_REGISTERED", placeholders= {"%registered_cmd_count%": str(register_count)})
     json_edit.write(register_path, local_command_register)
 
 
@@ -171,12 +170,12 @@ def execute_command(input_command: str) -> None:
 
 
     if len(positional_parsing) < 2:
-        terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
+        print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
         return
 
 
     if plugin_prefix not in plugins_register["__prefix__"]:
-        terminal.print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
+        print_err("CLIF_DEFAULT.EXECUTION.PLUGIN_PREFIX_NOT_FOUND", placeholders={"%pack_prefix%": plugin_prefix})
         return
     
     command = positional_parsing[1]
@@ -185,7 +184,7 @@ def execute_command(input_command: str) -> None:
 
     # Check the input data
     if pathload not in command_register:
-        terminal.print_err("CLIF_DEFAULT.EXECUTION.CMD_NOT_FOUND", placeholders={"%cmd_name%": plugin_prefix + " " + command})
+        print_err("CLIF_DEFAULT.EXECUTION.CMD_NOT_FOUND", placeholders={"%cmd_name%": plugin_prefix + " " + command})
         return
     
     command_import = command_register[pathload]
@@ -196,10 +195,11 @@ def execute_command(input_command: str) -> None:
     optional_arguments = optional_argument_maper(arguments)
     required_arguments = [arguments[index] for index in range(len(arguments)) if arguments[index] not in optional_arguments]
 
+    root_command_import = command_import
     command_import = command_import["sub_commands"][positional_parsing[2]] if is_sub_command else command_import
 
     if len(required_arguments) < len([arg for arg in command_import["args"] if arg.startswith("r:")]):
-        terminal.print_err("CLIF_DEFAULT.EXECUTION.CMD_ARGUMENT_LACKING", placeholders={
+        print_err("CLIF_DEFAULT.EXECUTION.CMD_ARGUMENT_LACKING", placeholders={
             "%cmd_name%": plugin_prefix + " " + command,
             "%usage%": " ".join([f"<{arg}>" for arg in command_import["args"]])
             })
@@ -209,7 +209,7 @@ def execute_command(input_command: str) -> None:
     pathload = pathload.replace(f"commands.{command}", f"commands.{command_import["pathload_name"]}") if is_sub_command else pathload
 
     # Execute the command
-    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"root": root_pathload, "pathload": pathload, "name": command, "data": command_import})
+    importlib.import_module(pathload).execute(required_arguments, optional_arguments, {"root": root_pathload, "pathload": pathload, "name": command, "root_data": root_command_import, "data": command_import})
     
     
     return

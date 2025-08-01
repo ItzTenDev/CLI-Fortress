@@ -5,7 +5,7 @@ from rich.text import Text
 from src.modules.colors import *
 
 
-FONT = json_edit.read("src/modules/modules_data/formated_terminal/fonts.json")["clif.default"]
+FONT = json_edit.read(str(os.getenv("PYTHONPATH")).replace("./", "") + f"/terminal/data/fonts.json")["clif.default"]
 
 
 # Formated Terminal
@@ -85,10 +85,8 @@ def get_ascii( text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀"
     ascii_lines = ascii_text(text)
     height = len(ascii_lines)
 
-
     # Get one gradient color per row (as RGB tuples)
     row_colors = gradient(colors, height)
-
 
     result_lines = []
     for y, line in enumerate(ascii_lines):

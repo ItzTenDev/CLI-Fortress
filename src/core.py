@@ -1,18 +1,14 @@
-# Nameless imports for quick access
-from src.modules.formated_terminal import *
-from src.modules.pins import *
-from random import randint
+from terminal import *
+from style import *
+from files import json_edit
 
 # Modules imports
-import src.modules.terminal as terminal
-import keyboard
-
 import src.handlers.command_handler as command_handler
 import src.handlers.plugin_handler as plugin_handler
-import src.modules.json_edit as json_edit
 
 
 global_settings = json_edit.read("data/settings/global_settings.json")
+
 
 # Global settings quick access
 execution_display_data      = global_settings["__execution.display.data__"]
@@ -51,9 +47,10 @@ display_prefix_symbol   = execution_display_config["display_prefix_symbol"]
 def clif_display():
     
     # Terminal Preparation
-    terminal.run_command("cls")
+    run_command("cls")
 
     colors = [(10 , 86, 163), (0, 204, 204)]
+
 
     if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors, darkening_factor=0.5)]) + "\n")
     if display_subtitle: printf("§8" + subtitle + "\n", True)
@@ -111,7 +108,7 @@ def main():
             try:
                 command_handler.execute_command(input_command)
             except:
-                terminal.print_err("CLIF_DEFAULT.ABSTRACT_SOMETHING_WENT_WRONG")
+                print_err("CLIF_DEFAULT.ABSTRACT_SOMETHING_WENT_WRONG")
         else:
             command_handler.execute_command(input_command)
 

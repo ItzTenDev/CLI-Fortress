@@ -1,7 +1,5 @@
-from src.modules.formated_terminal import *
-
-import src.modules.json_edit as json_edit
-import src.modules.terminal as terminal
+from files import json_edit
+from terminal import *
 
 import os
 
@@ -20,7 +18,7 @@ def pathfetch(exceptions: list[str] = []) -> dict:
         }
 
     if not os.path.exists(command_pack_directory): # Check if the given path in the settings acctually exist
-        terminal.print_err("CLIF_DEFAULT.PLUGIN_DIR_NOT_FOUND", True)
+        print_err("CLIF_DEFAULT.PLUGIN_DIR_NOT_FOUND", True)
         return {}
         
     for (dir_path, dir_names, file_names) in os.walk(command_pack_directory):
@@ -45,7 +43,7 @@ def register_plugins(exceptions : list[str] = []) -> None:
     pathloads = pathfetch(exceptions)
 
     json_edit.write(register_path, pathloads)
-    terminal.print_success("CLIF_DEFAULT.PLUGINS_REGISTERED", placeholders= {"%registered_plugin_count%": str(len(pathloads) - 1)})
+    print_success("CLIF_DEFAULT.PLUGINS_REGISTERED", placeholders= {"%registered_plugin_count%": str(len(pathloads) - 1)})
     
 
 
