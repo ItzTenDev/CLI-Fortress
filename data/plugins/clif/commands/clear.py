@@ -1,6 +1,5 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import src.modules.terminal as terminal
 
 # Must be in every single command files.
 def export() -> dict:
@@ -20,7 +19,7 @@ def export() -> dict:
 
 # Must be in every single command files.
 def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}) -> None:
-    terminal.run_command("cls")
+    run_command("cls")
     
     
     

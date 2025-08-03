@@ -1,10 +1,35 @@
 import keyboard
 
-from src.modules.formated_terminal import *
+from terminal import printf, center_str, colorf, escape_length
+from files import json_edit
+
+import os
+
+global_settings = json_edit.read("data/settings/global_settings.json")
 
 
 def __default__(): pass
 
+
+class InputBar:
+    
+    def suggest(self, input_symbol: str = ">", color : str = "§6", size: int = 71, placeholder_message : str = "§8dType something here§r"):
+        middle_size : int = size - escape_length(colorf(placeholder_message)) - len(input_symbol) - 2
+        input_front_column = len(input_symbol)
+
+        terminal_box = [
+            colorf(f"{color}╭{"─" * size}╮"),
+            colorf(f"{color}│ {" " * input_front_column}{" " * middle_size}{(placeholder_message)} {color}│"),
+            colorf(f"{color}╰{"─" * size}╯")]
+
+
+        for line in terminal_box: printf(center_str(line))
+        
+        terminal_size = os.get_terminal_size()
+        
+        input_result : str = input(colorf(int((terminal_size.columns - escape_length(terminal_box[1])) // 2) * " " + "\033[1A" * 2 + f"{color}│{colorf("§r")} {input_symbol} "))
+
+        return input_result
 
 class SelectMenu:
     # Universal Keycodes

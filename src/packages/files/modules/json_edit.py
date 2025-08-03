@@ -13,8 +13,7 @@ def read(path: str) -> dict:
         with open(path, "r", encoding="utf-8") as infile:
             return json.load(infile)
     except:
-        from src.modules.formated_terminal import printf  # Local import avoids circular import at module level
-        printf("§f" + repr(path) + "§r not found", False)
+        print("> " + repr(path) + " not found")
         return {}
     
 

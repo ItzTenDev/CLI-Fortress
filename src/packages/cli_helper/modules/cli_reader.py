@@ -1,6 +1,5 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import src.modules.terminal as terminal
 import linecache
 
 def get_cli(cli_name: str) -> list:
@@ -23,5 +22,5 @@ def display_cli(cli_name: str, with_data: dict = {}):
         
         
 def update_cli(cli_name: str, with_data: dict):
-    terminal.run_command("cls")
+    run_command("cls")
     display_cli(cli_name, with_data)

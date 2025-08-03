@@ -1,7 +1,5 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import importlib
-import src.modules.terminal as terminal
 
 # Must be in every single command files.
 def export() -> dict:

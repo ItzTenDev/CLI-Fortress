@@ -1,8 +1,6 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import src.modules.dir_file as df
-import src.modules.json_edit as json_edit
-import src.modules.terminal as terminal
+from files import json_edit
 
 import os
 
@@ -30,7 +28,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
         os.mkdir(plugin_directory_path + "/commands/")
         os.mkdir(plugin_directory_path + "/events/")
     except FileExistsError:
-        terminal.print_err("CLIF.COMMAND.PLUGIN$NEW.PLUGIN_ALREADY_EXIST", placeholders={"%plugin_name%": plugin_name})
+        print_err("CLIF.COMMAND.PLUGIN$NEW.PLUGIN_ALREADY_EXIST", placeholders={"%plugin_name%": plugin_name})
         return
 
     default_data: dict = {
@@ -42,7 +40,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
 
     json_edit.write(plugin_directory_path + "/data.json", default_data)
     
-    printf(f"§2▓ §fYour plugin §a§n{plugin_name} §r§fhas successfully been created !\n§r§2▓ §fIt runs its commands with the prefix: §a{prefix} §8[command] <sub_command/arguments>")
+    printf(f"§2█ §fYour plugin §a§n{plugin_name} §r§fhas successfully been created !\n§r§2█ §fIt runs its commands with the prefix: §a{prefix} §8[command] <sub_command/arguments>")
     
     
     

@@ -1,8 +1,5 @@
-from src.modules.formated_terminal import *
-
-import src.modules.dir_file as df
-import src.modules.json_edit as json_edit
-import src.modules.terminal as terminal
+from terminal import *
+from files import json_edit
 
 import os
 import shutil
@@ -25,7 +22,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
     plugin_directory_path : str = global_settings["plugins_directory"] + (formated_name)
 
     if not os.path.exists(plugin_directory_path):
-        terminal.print_err("CLIF.COMMAND.PLUGIN$DELETE.PLUGIN_PATH_NOT_FOUND", placeholders={"%pack_path%": plugin_directory_path})
+        print_err("CLIF.COMMAND.PLUGIN$DELETE.PLUGIN_PATH_NOT_FOUND", placeholders={"%pack_path%": plugin_directory_path})
         return
     
     if plugin_name in essential_plugin_list:
@@ -37,4 +34,4 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
         printf(f"Error deleting directory: {e}")
         return
     
-    printf(f"§2▓ §fThe plugin §a§n{plugin_name} §r§fhas successfully been deleted from CLIF !")
+    printf(f"§2█ §fThe plugin §a§n{plugin_name} §r§fhas successfully been deleted from CLIF !")

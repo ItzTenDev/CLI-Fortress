@@ -1,4 +1,4 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
 
 # Must be in every single command files.

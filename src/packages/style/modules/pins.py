@@ -1,14 +1,11 @@
-from src.modules.formated_terminal import *
-from src.modules.terminal import *
-from src.modules.colors import *
+from terminal import colorf, printf, print_err, center_str
 
-from src.modules.more_hashmap import *
-from src.modules.more_array import *
-import src.modules.json_edit as json_edit 
+from data_struct import array_pack, placeholder_set
+from files import json_edit
 
 import os
 
-presets = json_edit.read(str(os.getenv("PYTHONPATH")).replace("./", "") + f"/style/data/presets.json")
+presets = json_edit.read(str(os.getenv("PYTHONPATH", "./src/packages")).replace("./", "") + f"/style/data/presets.json")
 
 
 # PINS - v1.0.0

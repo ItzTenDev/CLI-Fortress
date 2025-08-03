@@ -97,6 +97,30 @@ ansi_notation = {
     '§fd': '\033[38;2;128;128;128m',  # Dark White (neutral gray)
     '§fb': '\033[48;2;255;255;255m',
     '§f': '\033[38;2;255;255;255m',   # Pure White
+
+    # === CUSTOM ===
+    '$clif.sb': '\033[38;2;170;220;255m',     # SKY BLUE
+    '$clif.vl': '\033[38;2;215;150;255m',     # VIBRANT LAVENDER
+    '$clif.vsp': '\033[38;2;255;160;210m',    # VIBRANT SUNSET PINK 
+    '$clif.lav': '\033[38;2;198;175;255m',    # LAVENDER 
+
+    '$clif.bg.sb': '\033[48;2;170;220;255m',     # SKY BLUE BG
+    '$clif.bg.vl': '\033[48;2;215;150;255m',     # VIBRANT LAVENDER BG
+    '$clif.bg.vsp': '\033[48;2;255;160;210m',    # VIBRANT SUNSET PINK BG
+    '$clif.bg.lav': '\033[48;2;198;175;255m',    # LAVENDER BG
+
+    '$clif.d.sb': '\033[38;2;120;160;190m',     # SKY BLUE (dark)
+    '$clif.d.vl': '\033[38;2;155;100;195m',     # VIBRANT LAVENDER (dark)
+    '$clif.d.vsp': '\033[38;2;190;110;150m',    # VIBRANT SUNSET PINK (dark)
+    '$clif.d.lav': '\033[38;2;145;125;195m',    # LAVENDER (dark)
+
+    '$clif.bg.d.sb': '\033[48;2;120;160;190m',     # SKY BLUE BG (dark)
+    '$clif.bg.d.vl': '\033[48;2;155;100;195m',     # VIBRANT LAVENDER BG (dark)
+    '$clif.bg.d.vsp': '\033[48;2;190;110;150m',    # VIBRANT SUNSET PINK BG (dark)
+    '$clif.bg.d.lav': '\033[48;2;145;125;195m',    # LAVENDER BG (dark)
+
+
+
 }
 
 
@@ -113,23 +137,23 @@ def gradient(colors, steps):
         raise ValueError("At least two colors are required.")
     
     segments = len(colors) - 1
-    if steps % segments != 0:
-        raise ValueError("Steps must be divisible by the number of color transitions (len(colors) - 1).")
-    
-    steps_per_segment = steps // segments
-    gradient = []
+    if steps < segments:
+        raise ValueError("Steps must be at least equal to the number of transitions.")
 
-    for i in range(segments):
+    segment_lengths = [steps // segments + (1 if i < steps % segments else 0) for i in range(segments)]
+
+    gradient = []
+    for i, seg_len in enumerate(segment_lengths):
         r1, g1, b1 = colors[i]
         r2, g2, b2 = colors[i + 1]
-        
-        for step in range(steps_per_segment):
-            t = step / (steps_per_segment - 1) if steps_per_segment > 1 else 0
+        for step in range(seg_len):
+            t = step / (seg_len - 1) if seg_len > 1 else 0
             r = int(r1 + (r2 - r1) * t)
             g = int(g1 + (g2 - g1) * t)
             b = int(b1 + (b2 - b1) * t)
-    
-    return gradient
+            gradient.append([r, g, b])
+    return gradient[:steps]
+
 
 
 def print_color_samples(color_codes = ansi_notation):

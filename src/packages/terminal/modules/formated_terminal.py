@@ -1,11 +1,11 @@
 import os
-import src.modules.json_edit as json_edit 
+from files import json_edit
 
 from rich.text import Text
-from src.modules.colors import *
+from terminal.modules.colors import *
 
 
-FONT = json_edit.read(str(os.getenv("PYTHONPATH")).replace("./", "") + f"/terminal/data/fonts.json")["clif.default"]
+FONT = json_edit.read(str(os.getenv("PYTHONPATH", "./src/packages")).replace("./", "") + f"/terminal/data/fonts.json")["clif.default"]
 
 
 # Formated Terminal
@@ -81,18 +81,19 @@ def printf(string: str, center : bool = False, end_str: str = "\n") -> None:
 
 
 # Returns a line by line ascii string in gradient/colored print
-def get_ascii( text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀", "█", "▄"), darkening_factor: float = 0.2) -> list[str]:
+def get_ascii(text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀", "▓", "▄"), darkening_factor: float = 0.2) -> list[str]:
     ascii_lines = ascii_text(text)
     height = len(ascii_lines)
+    width = max(len(line) for line in ascii_lines)
 
-    # Get one gradient color per row (as RGB tuples)
-    row_colors = gradient(colors, height)
+    # Generate horizontal gradient
+    col_colors = gradient(colors, width)
 
     result_lines = []
     for y, line in enumerate(ascii_lines):
-        r, g, b = row_colors[y]
         result_line = ""
-        for char in line:
+        for x, char in enumerate(line):
+            r, g, b = col_colors[x]
             if char == " ":
                 result_line += " "
             elif char in shadow_chars:
@@ -103,6 +104,7 @@ def get_ascii( text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀"
         result_lines.append(result_line)
 
     return result_lines
+
 
 
 def callout(content:str = "hello world", icon: str = "", main: str = "§e", second: str = "*"):

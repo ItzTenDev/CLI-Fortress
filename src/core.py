@@ -26,13 +26,13 @@ authors         = execution_display_data["authors"]
 
 
 # Print Settings
-display_name            = execution_display_config["display_name"]
-display_subtitle        = execution_display_config["display_subtitle"]
-display_description     = execution_display_config["display_description"]
-display_license         = execution_display_config["display_license"]
-display_git_repository  = execution_display_config["display_git_repository"]
-display_version         = execution_display_config["display_version"]
-display_authors         = execution_display_config["display_authors"]
+display_name            : str = execution_display_config["display_name"]
+display_subtitle        : str = execution_display_config["display_subtitle"]
+display_description     : str = execution_display_config["display_description"]
+display_license         : str = execution_display_config["display_license"]
+display_git_repository  : str = execution_display_config["display_git_repository"]
+display_version         : str = execution_display_config["display_version"]
+display_authors         : list[str] = execution_display_config["display_authors"]
 
 display_prefix_symbol   = execution_display_config["display_prefix_symbol"]
 
@@ -49,13 +49,22 @@ def clif_display():
     # Terminal Preparation
     run_command("cls")
 
-    colors = [(10 , 86, 163), (0, 204, 204)]
+    print("")
+    print("")
+
+    colors = [
+        (170, 220, 255),  # CLIF SKY BLUE
+        (215, 150, 255),  # CLIF VIBRANT LAVENDER
+        (255, 160, 210)   # CLIF VIBRANT SUNSET PINK
+    ]
 
 
-    if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors, darkening_factor=0.5)]) + "\n")
-    if display_subtitle: printf("§8" + subtitle + "\n", True)
-    if display_description: printf("§8" + description + "\n", True)
-    if display_git_repository: printf("§3§n" + f"{git_repository}" + "\n", True)
+    # print(gradient(colors, len("██░      ██░      ██░  ░░░░░ ██░░░░   ██░   ██░██░░░██     ██░   ██░░░██  ██░░░░    ░░░░██░  ░░░░██░"))[31])
+
+    if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors, darkening_factor=0)]) + "\n")
+    if display_subtitle: printf("§8" + subtitle + "", True)
+    if display_description: printf("§8" + description + "", True)
+    if display_git_repository: printf("$clif.lav§n" + f"{git_repository}" + "\n", True)
 
     pin_stack = []
 
@@ -74,26 +83,14 @@ def main():
     plugin_handler.register_plugins([])
     command_handler.register_commands([])
 
-
-    # Handle input
-    print("")    
     
     while True:
 
         clif_display()
 
         # Terminal Styling
-        terminal_box = [
-        "╭───────────────────────────────────────────────────────────────────────╮",
-        "│                                                                       │",
-        "╰───────────────────────────────────────────────────────────────────────╯"]
-
-        for line in terminal_box: print(center_str(line))
-        
         exec_symbol = global_settings["__execution.display.data__"]["prefix_symbol"]
-        terminal_size = os.get_terminal_size()
-
-        input_command : str = input(int((terminal_size.columns - len(terminal_box[1])) // 2) * " " + "\033[1A" * 2 + f"│ {exec_symbol if display_prefix_symbol else ""} ")
+        input_command = InputBar().suggest(color="$clif.lav", input_symbol=exec_symbol, placeholder_message= f"§8v{version}§r")
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()

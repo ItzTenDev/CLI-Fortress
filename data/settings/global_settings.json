@@ -13,7 +13,7 @@
   "messages_success_directory": "data/messages/success.json",
 
   "__execution.display.data__": {
-    "name": "CLIF",
+    "name": "CLI-FORTRESS",
     "subtitle": "© 2025 - Command Line Interface Fortress",
     "description": "A command line interface for managing and executing commands, plugins, and applications.",
     "license": "MIT",
@@ -23,7 +23,7 @@
       "ItzTen",
       "Wiliwow"
     ],
-    "prefix_symbol": "\uf120 "
+    "prefix_symbol": "> $clif.lavCommand"
   },
   
   "__execution.display.config__": {

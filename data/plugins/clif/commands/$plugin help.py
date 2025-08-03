@@ -1,8 +1,7 @@
-from src.modules.formated_terminal import *
+from terminal import *
 
-import src.modules.json_edit as json_edit
-import src.modules.cli_reader as clir
-from src.modules.terminal import *
+from files import json_edit
+import cli_helper as clir
 
 
 global_settings = json_edit.read("data/settings/global_settings.json")
