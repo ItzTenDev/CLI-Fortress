@@ -23,7 +23,7 @@ class InputBar:
             colorf(f"{color}╰{"─" * size}╯")]
 
 
-        for line in terminal_box: printf(center_str(line))
+        for line in terminal_box: printf(line, True)
         
         terminal_size = os.get_terminal_size()
         

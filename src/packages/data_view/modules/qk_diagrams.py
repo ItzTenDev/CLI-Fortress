@@ -1,6 +1,6 @@
 # Goal : Make easy Diagrams easily
 # For now : only sticks diagrams
-from terminal import *
+from terminal import printf
 
 class Diagram:
     name_set = []

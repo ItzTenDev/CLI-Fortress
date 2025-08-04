@@ -11,4 +11,7 @@ if __name__ == "__main__":
     if lib_path not in sys.path:
         sys.path.insert(0, lib_path)
     
+
+    # sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=130))
+
     Core.main()

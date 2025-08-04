@@ -29,7 +29,7 @@ def pin_format(preset: str, placeholder: dict = {}) -> str:
     content = presets[preset][3]        # The content of the pin
 
     icon_part : str = "§fb§0 " + icon + " §r"
-    text_part : str = color + text_color + " " + placeholder_set(content, placeholder) + " §r"
+    text_part : str = color + text_color + " " + placeholder_set(content, placeholder) + " §0b§r"
 
     pin_format_output = icon_part + text_part
 
