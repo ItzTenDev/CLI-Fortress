@@ -92,14 +92,14 @@ def register_commands(exceptions : list[str] = [], process_time: float = 0) -> N
 
     register_path : str = global_settings["commands_rgstr_directory"]
 
-    printf("§e> §fLoading commands : §f[" + ("§0━"*20) + "§f]", False, end_str="\r")
+    printf("§e> §fLoading commands : §f[" + ("§0━"*20) + "§f]", False, end="\r")
 
     register_count = 0
     for pathload in pathloads:
         register_count += 1
         registered_proportion = (int((20 * register_count) / (len(pathloads))))
 
-        printf("§e> §fLoading commands : §f[" + ((registered_proportion - 1) * "§6━") + "§6╸" + ("§0━"*(20 - registered_proportion)) + "§f]" + f" §r({pathload})" + " "*10, False, end_str="\r")
+        printf("§e> §fLoading commands : §f[" + ((registered_proportion - 1) * "§6━") + "§6╸" + ("§0━"*(20 - registered_proportion)) + "§f]" + f" §r({pathload})" + " "*10, False, end="\r")
 
         time.sleep(process_time) # To slowly process the register
 

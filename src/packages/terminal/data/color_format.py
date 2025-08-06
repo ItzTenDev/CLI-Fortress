@@ -8,6 +8,7 @@ color_codes = {
     '§p': '\033[5m',   # Blink (slow)
     '§v': '\033[7m',   # Inverted / Negative
     '§m': '\033[9m',   # Strikethrough
+    '$*': '\033[1A',   # Come back one line back
 
     # === Red spectrum ===
     '§4db': '\033[48;2;98;38;38m',    # Darker variant (background)

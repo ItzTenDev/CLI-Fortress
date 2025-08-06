@@ -83,6 +83,7 @@ def main():
     plugin_handler.register_plugins([])
     command_handler.register_commands([])
 
+    default_suggestion_list = ["exit"]
     
     while True:
 
@@ -90,7 +91,12 @@ def main():
 
         # Terminal Styling
         exec_symbol = global_settings["__execution.display.data__"]["prefix_symbol"]
-        input_command = InputBar().suggest(color="$clif.lav", input_symbol=exec_symbol, placeholder_message= f"§8v{version}§r")
+        input_command = InputBar(
+            placeholder="Enter Command...",
+            prompt=f'{exec_symbol} ',
+            color="$clif.lav",
+            autocomplete=default_suggestion_list
+            ).suggest()
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()

@@ -3,9 +3,12 @@ from files import json_edit
 
 from rich.text import Text
 from terminal.modules.colors import *
+from blessed import Terminal
+
 
 
 FONT = json_edit.read(str(os.getenv("PYTHONPATH", "./src/packages")).replace("./", "") + f"/terminal/data/fonts.json")["clif.default"]
+term = Terminal()
 
 
 # Formated Terminal
@@ -75,9 +78,108 @@ def center_str(string: str, ratio: int = 1):
     return spacers + string
 
 
+def get_spacer(string_size: int, ratio: int = 1):
+    x_cmd_size = os.get_terminal_size().columns
+    
+    spacer = int((x_cmd_size - string_size) // (2*ratio))
+    return spacer
+
+
 # Prints using a given local color format
-def printf(string: str, center : bool = False, end_str: str = "\n") -> None:
-    return print(colorf(string), end= end_str) if not center else print(center_str(colorf(string)), end= end_str)
+def printf(string: str = "", center : bool = False, end: str = "\n", flush: bool=False) -> None:
+    return print(colorf(string), end= end, flush=flush) if not center else print(center_str(colorf(string)), end= end, flush=flush)
+
+
+
+def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = None, autocomplete: list[str] | None = None, required_output: bool = False) -> str:
+    buffer = ""
+    cursor = 0
+    scroll_offset = 0
+
+    print()  # Move to new line
+
+    with term.cbreak():
+        while True:
+            y = term.get_location()[0]
+
+            # Adjust scroll window
+            if visible_limit is not None:
+                if cursor < scroll_offset:
+                    scroll_offset = cursor
+                elif cursor > scroll_offset + visible_limit:
+                    scroll_offset = cursor - visible_limit
+                visible_text = buffer[scroll_offset:scroll_offset + visible_limit]
+            else:
+                scroll_offset = 0
+                visible_text = buffer
+
+            prompt_len = escape_length(prompt)
+            content_width = visible_limit if visible_limit is not None else escape_length(visible_text)
+
+            # Move to correct line, overwrite only our section
+            printf(term.move_yx(y, 0), end="")
+            printf(prompt + " " * content_width, end="")  # Clear area
+            printf(term.move_x(prompt_len), end="")
+
+            if not buffer:
+                # Show placeholder in gray, keep cursor on first char
+                printf("§8" + placeholder[:content_width], end="", flush=True)
+                printf(term.move_x(prompt_len), end="", flush=True)
+            else:
+                printf(visible_text, end="", flush=True)
+
+                # Autocomplete suggestion
+                suggestion = None
+                if autocomplete:
+                    for word in autocomplete:
+                        if word.startswith(buffer):
+                            suggestion = word[len(buffer):]
+                            break
+
+                if suggestion and visible_limit is not None:
+                    rem = suggestion[:max(0, visible_limit - len(visible_text))]
+                    printf("§8" + rem, end="", flush=True)
+
+                # Reposition cursor
+                printf(term.move_x(prompt_len + cursor - scroll_offset), end="", flush=True)
+
+            key = term.inkey()
+
+            if key.name == "KEY_ENTER":
+                if required_output and (buffer == "" or buffer.startswith(" ")):
+                    continue
+                else:
+                    printf("")
+                    return buffer
+
+
+            elif key.name in ("KEY_BACKSPACE", "KEY_DELETE") or key == '\x7f':
+                if cursor > 0:
+                    buffer = buffer[:cursor - 1] + buffer[cursor:]
+                    cursor -= 1
+
+            elif key.name == "KEY_LEFT":
+                if cursor > 0:
+                    cursor -= 1
+
+            elif key.name == "KEY_RIGHT":
+                if cursor < len(buffer):
+                    cursor += 1
+
+            elif key.name == "KEY_TAB":
+                if autocomplete:
+                    for word in autocomplete:
+                        if word.startswith(buffer):
+                            buffer = word
+                            cursor = len(buffer)
+                            break
+
+            elif key.is_sequence:
+                continue
+
+            elif key:
+                buffer = buffer[:cursor] + key + buffer[cursor:]
+                cursor += 1
 
 
 # Returns a line by line ascii string in gradient/colored print
