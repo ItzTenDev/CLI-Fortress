@@ -90,19 +90,23 @@ def printf(string: str = "", center : bool = False, end: str = "\n", flush: bool
     return print(colorf(string), end= end, flush=flush) if not center else print(center_str(colorf(string)), end= end, flush=flush)
 
 
-
 def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = None, autocomplete: list[str] | None = None, required_output: bool = False) -> str:
     buffer = ""
     cursor = 0
     scroll_offset = 0
+    last_render = ""
+    last_suggestion = ""
+    last_buffer = ""
 
-    print()  # Move to new line
+    print()  # New line
+
+    prompt_len = escape_length(prompt)
 
     with term.cbreak():
         while True:
             y = term.get_location()[0]
 
-            # Adjust scroll window
+            # Scroll adjustment
             if visible_limit is not None:
                 if cursor < scroll_offset:
                     scroll_offset = cursor
@@ -113,45 +117,50 @@ def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = 
                 scroll_offset = 0
                 visible_text = buffer
 
-            prompt_len = escape_length(prompt)
             content_width = visible_limit if visible_limit is not None else escape_length(visible_text)
 
-            # Move to correct line, overwrite only our section
-            printf(term.move_yx(y, 0), end="")
-            printf(prompt + " " * content_width, end="")  # Clear area
-            printf(term.move_x(prompt_len), end="")
-
-            if not buffer:
-                # Show placeholder in gray, keep cursor on first char
-                printf("§8" + placeholder[:content_width], end="", flush=True)
-                printf(term.move_x(prompt_len), end="", flush=True)
+            # Autocomplete only when buffer changes
+            suggestion = ""
+            if autocomplete and buffer != last_buffer:
+                for word in autocomplete:
+                    if word.startswith(buffer):
+                        suggestion = word[len(buffer):]
+                        break
+                last_buffer = buffer
+                last_suggestion = suggestion
             else:
-                printf(visible_text, end="", flush=True)
+                suggestion = last_suggestion
 
-                # Autocomplete suggestion
-                suggestion = None
-                if autocomplete:
-                    for word in autocomplete:
-                        if word.startswith(buffer):
-                            suggestion = word[len(buffer):]
-                            break
-
+            # Build line only if rendering changes
+            render = prompt
+            if not buffer:
+                render += f"§8{placeholder[:content_width]}"
+            else:
+                render += visible_text
                 if suggestion and visible_limit is not None:
                     rem = suggestion[:max(0, visible_limit - len(visible_text))]
-                    printf("§8" + rem, end="", flush=True)
+                    render += f"§8{rem}"
 
-                # Reposition cursor
-                printf(term.move_x(prompt_len + cursor - scroll_offset), end="", flush=True)
+            if render != last_render:
+                printf(term.move_yx(y, 0), end="")
+
+                # Overwrite previous longer content
+                extra_clear = max(0, len(last_render) - len(render))
+                printf(render + (" " * extra_clear), end="", flush=True)
+
+                last_render = render
+
+
+            # Reposition cursor
+            printf(term.move_yx(y, prompt_len + cursor - scroll_offset), end="", flush=True)
 
             key = term.inkey()
 
             if key.name == "KEY_ENTER":
-                if required_output and (buffer == "" or buffer.startswith(" ")):
+                if required_output and (buffer.strip() == ""):
                     continue
-                else:
-                    printf("")
-                    return buffer
-
+                printf("")
+                return buffer
 
             elif key.name in ("KEY_BACKSPACE", "KEY_DELETE") or key == '\x7f':
                 if cursor > 0:
@@ -166,13 +175,12 @@ def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = 
                 if cursor < len(buffer):
                     cursor += 1
 
-            elif key.name == "KEY_TAB":
-                if autocomplete:
-                    for word in autocomplete:
-                        if word.startswith(buffer):
-                            buffer = word
-                            cursor = len(buffer)
-                            break
+            elif key.name == "KEY_TAB" and autocomplete:
+                for word in autocomplete:
+                    if word.startswith(buffer):
+                        buffer = word
+                        cursor = len(buffer)
+                        break
 
             elif key.is_sequence:
                 continue
