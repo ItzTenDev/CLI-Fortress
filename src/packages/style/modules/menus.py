@@ -85,7 +85,7 @@ class Option:
 
 
     def option_display(self, color: str = "$clif.lav"):
-        return f"§r{self.brackets[0]}§r{self.particle} {color if self.selected else ""}{self.content}§r {self.brackets[1]}§r"
+        return f"§r{self.brackets[0]}§r{f"{self.particle}" if self.particle != "" else " "}§r{color if self.selected else ""}{self.content}§r {self.brackets[1]}§r"
     
 
     def set_selection(self, condition: bool = True): 
