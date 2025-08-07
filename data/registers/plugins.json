@@ -30,5 +30,6 @@
             "version": "1.0.0",
             "file": "data/plugins/fun_knee"
         }
-    }
+    },
+    "__commands__": {}
 }

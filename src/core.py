@@ -3,8 +3,10 @@ from style import *
 from files import json_edit
 
 # Modules imports
+import time
 import src.handlers.command_handler as command_handler
 import src.handlers.plugin_handler as plugin_handler
+import src.handlers.autocomplete_handler as autocomplete_handler
 
 
 global_settings = json_edit.read("data/settings/global_settings.json")
@@ -36,6 +38,9 @@ display_authors         : list[str] = execution_display_config["display_authors"
 
 display_prefix_symbol   = execution_display_config["display_prefix_symbol"]
 
+exec_symbol = global_settings["__execution.display.data__"]["prefix_symbol"]
+
+
 
 
 # TO READ BEFORE USING OR EDITTING
@@ -58,45 +63,65 @@ def clif_display():
         (255, 160, 210)   # CLIF VIBRANT SUNSET PINK
     ]
 
-
-    # print(gradient(colors, len("██░      ██░      ██░  ░░░░░ ██░░░░   ██░   ██░██░░░██     ██░   ██░░░██  ██░░░░    ░░░░██░  ░░░░██░"))[31])
-
-    if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors, darkening_factor=0)]) + "\n")
+    if display_name: print("\n".join([center_str(i) for i in get_ascii(name, colors)]) + "\n")
     if display_subtitle: printf("§8" + subtitle + "", True)
     if display_description: printf("§8" + description + "", True)
     if display_git_repository: printf("$clif.lav§n" + f"{git_repository}" + "\n", True)
 
     pin_stack = []
 
-    if display_license: pin_stack.append(pin_format("repo.licence", {"%github.repo.license%": repo_license}))
-    if display_version: pin_stack.append(pin_format("repo.version", {"%github.repo.version%": version}))
-    if display_authors: 
-        for author in authors: pin_stack.append(pin_format("repo.author", {"%github.user.name%": author}))
+    if display_license: pin_stack += [pin_format("repo.licence", {"%github.repo.license%": repo_license})]
+    if display_version: pin_stack += [pin_format("repo.version", {"%github.repo.version%": version})]
+    if display_authors: pin_stack += [pin_format("repo.author", {"%github.user.name%": author}) for author in authors]
     
     printf("\n\n".join(pin_display(pin_stack, 5)) + "\n", False)
 
 
-def main():
+def main(exec_time: float = 0):
     
-
     # Handling events and commmands
     plugin_handler.register_plugins([])
     command_handler.register_commands([])
-
-    default_suggestion_list = ["exit"]
     
+    autocomplete_finder = autocomplete_handler.fetch()
+
+    default_suggestion_list = ["exit"] + autocomplete_finder
+
+
+    select_menu = OptionStack("OPTIONS", [
+        StaticOption("Run Command", ""),
+        StaticOption("Configuration", ""),
+        StaticOption("Exit CLIF", ""),
+    ], "$clif.lav", "centr", warp=4, seperation=1)
+
+    completion_time = time.time() - exec_time
+
+
+    
+    input_bar = InputBar(
+        placeholder="Enter Command...",
+        prompt=f'{exec_symbol} ',
+        color="$clif.lav",
+        autocomplete=default_suggestion_list,
+        decorator=f"§8{completion_time:.2f}s"
+    )
+
     while True:
 
         clif_display()
 
         # Terminal Styling
-        exec_symbol = global_settings["__execution.display.data__"]["prefix_symbol"]
-        input_command = InputBar(
-            placeholder="Enter Command...",
-            prompt=f'{exec_symbol} ',
-            color="$clif.lav",
-            autocomplete=default_suggestion_list
-            ).suggest()
+        
+        
+
+        input_command = ""
+        selection = select_menu.suggest()
+
+        match selection:
+            case "Run Command": input_command = input_bar.suggest()
+            case "Configuration": exit()
+            case "Exit CLIF": exit()
+        
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()

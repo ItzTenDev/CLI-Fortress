@@ -14,7 +14,8 @@ def pathfetch(exceptions: list[str] = []) -> dict:
     pathfetch_output : dict = {
             "__list__": [],
             "__prefix__": {},
-            "__data__": {}
+            "__data__": {},
+            "__commands__": {}
         }
 
     if not os.path.exists(command_pack_directory): # Check if the given path in the settings acctually exist

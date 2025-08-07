@@ -126,6 +126,7 @@ def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = 
                     if word.startswith(buffer):
                         suggestion = word[len(buffer):]
                         break
+
                 last_buffer = buffer
                 last_suggestion = suggestion
             else:
@@ -181,7 +182,7 @@ def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = 
                         buffer = word
                         cursor = len(buffer)
                         break
-
+                
             elif key.is_sequence:
                 continue
 
@@ -191,9 +192,8 @@ def inputf(prompt: str = "", placeholder: str = "", visible_limit: int | None = 
 
 
 # Returns a line by line ascii string in gradient/colored print
-def get_ascii(text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀", "▓", "▄"), darkening_factor: float = 0.2) -> list[str]:
+def get_ascii(text: str, colors: list[tuple]) -> list[str]:
     ascii_lines = ascii_text(text)
-    height = len(ascii_lines)
     width = max(len(line) for line in ascii_lines)
 
     # Generate horizontal gradient
@@ -206,9 +206,6 @@ def get_ascii(text: str, colors: list[tuple], shadow_chars: tuple = (" ", "▀",
             r, g, b = col_colors[x]
             if char == " ":
                 result_line += " "
-            elif char in shadow_chars:
-                dr, dg, db = darken_color((r, g, b), factor=(1 - darkening_factor))
-                result_line += f"\033[38;2;{dr};{dg};{db}m{char}\033[0m"
             else:
                 result_line += f"\033[38;2;{r};{g};{b}m{char}\033[0m"
         result_lines.append(result_line)

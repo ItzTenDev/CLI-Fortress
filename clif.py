@@ -1,7 +1,7 @@
 import src.core as Core
 import sys
 import os
-
+import time
 
 if __name__ == "__main__": 
     # Get the absolute path to the libraries/ directory
@@ -14,4 +14,4 @@ if __name__ == "__main__":
 
     # sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=130))
 
-    Core.main()
+    Core.main(time.time())

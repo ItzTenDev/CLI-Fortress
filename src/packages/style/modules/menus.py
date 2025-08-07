@@ -3,7 +3,6 @@ import keyboard
 from terminal import inputf, printf, get_spacer, colorf, escape_length, center_str
 from files import json_edit
 
-from data_struct import array_pack
 
 import os
 
@@ -27,7 +26,7 @@ class InputBar:
 
         self.allocated_space = allocated_space
 
-        self.decorator = decorator
+        self.decorator = colorf(decorator)
         self.decorator_size = escape_length(self.decorator)
 
         self.hypehns = (((self.size-2) - escape_length(colorf(self.title)) - 1) // 2) + 1
@@ -61,6 +60,7 @@ class InputBar:
                         autocomplete=self.autocomplete,
                         required_output=True)
         
+        print()
         return result
 
 class Option:
@@ -74,20 +74,23 @@ class Option:
     content = "Default Content"
 
     particle = "§8-§r"
-    brackets = [" ", " "]
+    brackets = ["", ""]
     CUSTOM_KEYBIND = -1
 
 
-    def __init__(self, content: str = "Default Content", keybind: int = -1): 
-        self.CUSTOM_KEYBIND = keybind
+    def __init__(self, content: str = "Default Content", particle: str = "§8-§r"): 
+        self.CUSTOM_KEYBIND = -1
         self.content = content
+        self.particle = particle
 
 
     def option_display(self, color: str = "$clif.lav"):
-        return f"§r{self.brackets[0]}§r {self.particle} {color if self.selected else ""}{self.content} §r{self.brackets[1]}§r"
+        return f"§r{self.brackets[0]}§r{self.particle} {color if self.selected else ""}{self.content}§r {self.brackets[1]}§r"
     
 
-    def set_selection(self, condition: bool = True): self.selected = condition
+    def set_selection(self, condition: bool = True): 
+        self.selected = condition
+
     def update_data(self): return
 
 
@@ -134,8 +137,10 @@ class MultiOption(Option):
 
 
 
-    def __init__(self, content_list: list[str] = ["Default Content 1", "Default Content 2"], keybind: int = -1): 
-        self.CUSTOM_KEYBIND = keybind
+    def __init__(self, content_list: list[str] = ["Default Content 1", "Default Content 2"], particle: str = "§8-§r"): 
+        self.CUSTOM_KEYBIND = -1
+        self.particle = particle
+        
         self.content = content_list[self.current_selection]
         self.content_list = content_list
 
@@ -157,10 +162,9 @@ class MultiOption(Option):
         self.brackets[1] = "§8 " if direction_indicator == 1 else "§8>"
 
 class StaticOption(Option):
-
-    def __init__(self, content: str = "Default Content", keybind: int = -1): 
-        self.content = content
-        self.CUSTOM_KEYBIND = keybind
+    def set_selection(self, condition: bool = True): 
+        self.selected = condition
+        self.brackets = ["§8>§r", "§8<§r"] if condition else ["", ""]
 
 class OptionStack:
     # Universal Keycodes
@@ -179,10 +183,13 @@ class OptionStack:
     warp = 4
 
 
-    def __init__(self, title: str = "DEFAULT TITLE", options: list[Option] = [], color: str = "§6", layout: str = "default", warp: int = 4):
+    def __init__(self, title: str = "DEFAULT TITLE", options: list[Option] = [], color: str = "§6", layout: str = "default", warp: int = 4, display_title: bool = False, seperation: int = 1):
         self.title = title
         self.options = options
         self.color = color
+
+        self.seperation = seperation
+        self.display_title = display_title
 
         self.current_index = 0
         self.layout = layout
@@ -190,6 +197,8 @@ class OptionStack:
         self.warp = warp
 
         self.set_max_size()
+
+        self.page_previews = [[(self.warp)*cp + index for index in range(self.warp) if (self.warp)*cp + index <= (len(self.options) - 1)] for cp in range(((len(self.options) - 1) // self.warp) + 1)]
 
 
     def set_max_size(self): 
@@ -204,35 +213,51 @@ class OptionStack:
         content = colorf(option.option_display(self.color))
         key_display = (f"§8{chr(option.CUSTOM_KEYBIND)}§r" if option.CUSTOM_KEYBIND != -1 else "")
 
-        if layout == "default": content = content + f"   §8({key_display}§8)§r"
-        elif layout == "centr": content = center_str(content + f"   §8({key_display}§8)§r")
+        if layout == "default": content = content
+        elif layout == "centr": content = center_str(content)
         elif layout == "centr_al_left": 
             spacer =  self.set_max_size() - escape_length(content) - escape_length(colorf(key_display))
             aligned_content = content + (" " * spacer) + colorf(key_display)
 
             content = center_str(aligned_content)
 
-        return colorf(content)
+        return colorf(content) + (os.get_terminal_size().columns - escape_length(colorf(content))) * " "
         
 
-
     def display_menu(self):
-        printf(f"§8< §f{self.title} ({self.current_page + 1}/{((len(self.options) - 1) // self.warp) + 1}) §8> ({self.current_index})", True)
-        print()
+        if self.display_title:
+            printf(f"§8< §f{self.title} ({self.current_page + 1}/{((len(self.options) - 1) // self.warp) + 1}) §8>", True)
+            print()
 
-        displayable = [(self.warp)*self.current_page + index for index in range(self.warp) if (self.warp)*self.current_page + index <= (len(self.options) - 1)]
+        displayable = self.page_previews[self.current_page]
 
         for index in displayable:
             option : Option = self.options[index]
             option.set_selection(self.current_index == index)
             printf(self.apply_layout(option, layout= self.layout))
+            if self.seperation != 0: print("\n"*(self.seperation - 1))
         
-        printf(( " "*100 + "\n")*(self.warp - len(displayable)), True)
+        printf((" "*100 + "\n")*(self.warp - len(displayable)), True)
 
 
     def refresh_menu(self):
-        print("\033[1A" * ((self.warp) + 4))
+        
+        display_size = len(self.page_previews[self.current_page])
+        menu_line_size = (display_size) * (1 + self.seperation) + (self.warp - display_size)
+
+        print("\033[1A" * (menu_line_size + 2))
         self.display_menu()
+
+    
+    def clean_up(self):
+        
+        display_size = len(self.page_previews[self.current_page])
+        menu_line_size = (display_size) * (1 + self.seperation) + (self.warp - display_size)
+
+        print("\033[1A" * (menu_line_size + 2))
+        for _ in range(menu_line_size + 2): print(" " * os.get_terminal_size().columns)
+        print("\033[1A" * (menu_line_size + 2))
+        
 
 
     def suggest(self, execution = __default__, *args, **def_args):
@@ -256,12 +281,15 @@ class OptionStack:
                         self.current_index = self.current_page*self.warp + (((self.current_index - self.current_page*self.warp) + 1) % len(available))
                         self.options[self.current_index].set_selection(True)
 
-                    case self.ENTER: return self.options[self.current_index].input_action(keycode)
+                    case self.ENTER: 
+                        self.clean_up()
+                        return self.options[self.current_index].input_action(keycode)
 
                     case self.CUSTOM_KEYBING: return self.options[self.current_index].input_action(keycode)
                     case self.ESCAPE: return {}
 
                     case self.LEFT: 
+                        if len(self.page_previews) == 1: continue
                         self.current_page = ((self.current_page - 1) % (((len(self.options) - 1) // self.warp) + 1))
                         
                         self.options[self.current_index].set_selection(False)
@@ -269,6 +297,7 @@ class OptionStack:
                         self.options[self.current_index].set_selection(True)
 
                     case self.RIGHT: 
+                        if len(self.page_previews) == 1: continue
                         self.current_page = ((self.current_page + 1) % (((len(self.options) - 1) // self.warp) + 1))
 
                         self.options[self.current_index].set_selection(False)

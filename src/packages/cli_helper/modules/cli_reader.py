@@ -1,4 +1,4 @@
-from terminal import *
+from terminal import printf, run_command
 
 import linecache
 

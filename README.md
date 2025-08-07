@@ -1,16 +1,8 @@
 # CLI-Fortress
 
-> A little OS in your terminal.
+> CLI Engine... in a CLI.
 
-I’ve always found command-line interfaces (CLIs) super fun and cool.
-So I decided to build my own little "OS" kind of CLI — just for fun. It’s not a real operating system (obiously), but more of a simulation, like... Kind of Lazyvim vibes in terms of design.
-I just think that CLIs are so fun, like... Trying hard to make a good looking thing only using characters, that sound already super cool.
-
-The idea behind this thing is to make something very **modular**. What i mean is that, you can add your own little tweaks to it, and it will handle the loading of those plugins/app by it self.
-You don't have to recode the entire thing or hard-code your tweak inside the program, you just code your external program with some little mendatory files, and the CLI would recognize those.
-
-Please, if you want to code your own app/plugin, please do, but try to not come out of the main idea : CLI.
-It would be wierd to used tKinter for a CLI for example. But it is up to you. What could be fun is opening other CLIs as sort of "windows". That must be sick.
+CLI are fun, holding in all the power of your computer behind lines of text. We often need CLIs to do basic projects that do not require a big GUI. However, coding a command handler as well a pretty interface is often... Time consuming. Which is why I created CLIF, a CLI tool that allows you to instantly create custom commands, plugins and CLI Apps without leaving you terminal. In addition to that, if you feel limited by the Engine, you can even simply open your project in your favorite code editor and tweak whatever you want directly.
 
 ---
 
@@ -18,15 +10,10 @@ It would be wierd to used tKinter for a CLI for example. But it is up to you. Wh
 
 > This section will be modified each time there is a new thing. It won't show every single feature, just the new ones.
 
-So for now, it mostly has a command line system, which is the global thing, you can create custom commands and all. However, i need to create some global command system, like `[system/plugin] [command]` instead of directly having the command.
-You can go to `src/commands/your_category/...` and add a `custom.py` command. DO NOT, give command names that already exist, and you MUST follow the constructor syntax with the `export()` function.
-
-I think the next thing i will add soon is a "root command" property so we can add that `[system/plugin] [command]` thingy.
+Now, you can run clif directly from your terminal using the command "clif" which will activate some environement vaariable for using some packages more quickly.
 
 ---
 
 ## Other Files
 
 [Documentation](docs/DOCUMENTATION.md) - SOON
-
-[TO-DO](TODO.md)
