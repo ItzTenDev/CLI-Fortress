@@ -4,18 +4,17 @@ from terminal import *
 import os
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 
 
 # Retrives the loading root path of plugins
 def pathfetch(exceptions: list[str] = []) -> dict:
-    command_pack_directory : str = global_settings["plugins_directory"]
+    command_pack_directory : str = settings["plugins_directory"]
     pathfetch_output : dict = {
             "__list__": [],
             "__prefix__": {},
             "__data__": {},
-            "__commands__": {}
         }
 
     if not os.path.exists(command_pack_directory): # Check if the given path in the settings acctually exist
@@ -26,6 +25,7 @@ def pathfetch(exceptions: list[str] = []) -> dict:
 
         if 'data.json' in file_names: # This means that a plugin DATA has been found.
             plugin_data = json_edit.read(dir_path + '/data.json')  
+            print(plugin_data)
             if plugin_data["name"] in exceptions: continue
             
             pathfetch_output["__data__"][plugin_data["id"]] = plugin_data
@@ -40,7 +40,7 @@ def pathfetch(exceptions: list[str] = []) -> dict:
 
 
 def register_plugins(exceptions : list[str] = []) -> None:
-    register_path : str = global_settings["plugins_rgstr_directory"]
+    register_path : str = settings["plugins_rgstr_directory"]
     pathloads = pathfetch(exceptions)
 
     json_edit.write(register_path, pathloads)

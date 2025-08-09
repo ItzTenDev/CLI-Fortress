@@ -5,7 +5,7 @@ from files import json_edit
 import os
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 # Must be in every single command files.
 def export() -> dict:
@@ -20,7 +20,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
     description : str = opt_args.get("--description") or "Default description"
 
     formated_name : str = plugin_name.lower().replace(" ", "_")
-    plugin_directory_path : str = global_settings["plugins_directory"] + (formated_name)
+    plugin_directory_path : str = settings["plugins_directory"] + (formated_name)
     prefix = formated_name.replace("_", "-")
 
     try:

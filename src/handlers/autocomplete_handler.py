@@ -1,10 +1,10 @@
 from files import json_edit
 from terminal import *
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
-commands_register = json_edit.read(global_settings["commands_rgstr_directory"])
-plugins_register = json_edit.read(global_settings["plugins_rgstr_directory"])
+commands_register = json_edit.read(settings["commands_rgstr_directory"])
+plugins_register = json_edit.read(settings["plugins_rgstr_directory"])
 
 
 def fetch() -> list[str]:

@@ -4,9 +4,9 @@ from files import json_edit
 import cli_helper as clir
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
-plugin_register = json_edit.read(global_settings["plugins_rgstr_directory"])
-command_register = json_edit.read(global_settings["commands_rgstr_directory"])
+settings = json_edit.read("data/settings.json")
+plugin_register = json_edit.read(settings["plugins_rgstr_directory"])
+command_register = json_edit.read(settings["commands_rgstr_directory"])
 
 
 # Must be in every single command files.
@@ -30,7 +30,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
     plugin_name = plugin_data["name"]
 
     if command_name != "*":
-        command_pathload = (".".join([global_settings["plugins_directory"] + plugin_id, "commands", command_name])).replace("/", ".")
+        command_pathload = (".".join([settings["plugins_directory"] + plugin_id, "commands", command_name])).replace("/", ".")
         
 
         if command_pathload not in command_register:

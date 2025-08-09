@@ -1,7 +1,5 @@
 import src.core as Core
-import sys
-import os
-import time
+import sys, os, time
 
 if __name__ == "__main__": 
     # Get the absolute path to the libraries/ directory

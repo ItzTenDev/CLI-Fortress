@@ -2,6 +2,7 @@ from terminal import *
 from style import *
 from files import json_edit
 
+
 # Modules imports
 import time
 import src.handlers.command_handler as command_handler
@@ -9,12 +10,12 @@ import src.handlers.plugin_handler as plugin_handler
 import src.handlers.autocomplete_handler as autocomplete_handler
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 
 # Global settings quick access
-execution_display_data      = global_settings["__execution.display.data__"]
-execution_display_config    = global_settings["__execution.display.config__"]
+execution_display_data      = settings["__execution.display.data__"]
+execution_display_config    = settings["__execution.display.config__"]
 
 
 # Print Settings
@@ -38,7 +39,7 @@ display_authors         : list[str] = execution_display_config["display_authors"
 
 display_prefix_symbol   = execution_display_config["display_prefix_symbol"]
 
-exec_symbol = global_settings["__execution.display.data__"]["prefix_symbol"]
+exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 
 
 

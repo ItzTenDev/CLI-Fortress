@@ -6,7 +6,6 @@
   "commands_rgstr_directory": "data/registers/commands.json",
   "plugins_rgstr_directory": "data/registers/plugins.json",
   "events_rgstr_directory": "data/registers/events.json",
-  "autocomplete_rgstr_directory": "data/registers/autocomplete.json",
 
   "messages_err_directory": "data/messages/errors.json",
   "messages_info_directory": "data/messages/info.json",

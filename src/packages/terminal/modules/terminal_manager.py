@@ -4,7 +4,7 @@ from files import json_edit
 import os
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 
 # This module allows the user to control a bit more of the terminal it self
@@ -34,7 +34,7 @@ def run_command(command: str):
 
 # Prints an error based on its ID. (Funny)
 def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> None:
-    messages : dict = json_edit.read(global_settings["messages_err_directory"])
+    messages : dict = json_edit.read(settings["messages_err_directory"])
     message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]) - 5)
 
     for k in placeholders: message = message.replace(k, placeholders[k])
@@ -44,7 +44,7 @@ def print_err(msg_id: str, deadly: bool = False, placeholders: dict = {}) -> Non
 
 # Prints an warning based on its ID. (Funny)
 def print_success(msg_id: str, placeholders: dict = {}) -> None:
-    messages : dict = json_edit.read(global_settings["messages_success_directory"])
+    messages : dict = json_edit.read(settings["messages_success_directory"])
     message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
 
     for k in placeholders: message = message.replace(k, placeholders[k])
@@ -54,7 +54,7 @@ def print_success(msg_id: str, placeholders: dict = {}) -> None:
 
 # Prints an warning based on its ID. (Funny)
 def print_warn(msg_id: str, placeholders: dict = {}) -> None:
-    messages : dict = json_edit.read(global_settings["messages_warn_directory"])
+    messages : dict = json_edit.read(settings["messages_warn_directory"])
     message : str = messages[msg_id] + " "*(os.get_terminal_size().columns - len(messages[msg_id]))
 
     for k in placeholders: message = message.replace(k, placeholders[k])

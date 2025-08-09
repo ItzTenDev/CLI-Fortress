@@ -8,7 +8,7 @@ import os
 import shlex
 
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 
 # The command handler has a simple process.
@@ -22,7 +22,7 @@ global_settings = json_edit.read("data/settings/global_settings.json")
 
 # Retrives the loading root path of plugins
 def pathfetch(exceptions: list[str] = []) -> dict:
-    plugin_directory : str = global_settings["plugins_directory"]
+    plugin_directory : str = settings["plugins_directory"]
     pathfetch_output : dict = {
             "__list__": [],
         }
@@ -48,7 +48,7 @@ def pathfetch(exceptions: list[str] = []) -> dict:
 # Returns the loading paths of all the command of every registered plugin, exception excluded (lord I am so funny)
 def load_commands(override: list[str] = [], exceptions: list[str] = []) -> list[str]: # D = 3
     load_commands_output = []
-    plugins_register : dict = json_edit.read(global_settings["plugins_rgstr_directory"]) 
+    plugins_register : dict = json_edit.read(settings["plugins_rgstr_directory"]) 
 
     for plugin in (plugins_register["__list__"] if override == [] else override): # Checks the override instead of register
         if plugin in exceptions: continue
@@ -78,7 +78,7 @@ def load_commands(override: list[str] = [], exceptions: list[str] = []) -> list[
 
 
 def register_plugin(exceptions : list[str] = []) -> None:
-    register_path : str = global_settings["plugins_rgstr_directory"]
+    register_path : str = settings["plugins_rgstr_directory"]
     pathloads = pathfetch(exceptions)
 
     json_edit.write(register_path, pathloads)
@@ -90,7 +90,7 @@ def register_commands(exceptions : list[str] = [], process_time: float = 0) -> N
     pathloads : list[str] = load_commands(exceptions)
     local_command_register = {}
 
-    register_path : str = global_settings["commands_rgstr_directory"]
+    register_path : str = settings["commands_rgstr_directory"]
 
     printf("§e> §fLoading commands : §f[" + ("§0━"*20) + "§f]", False, end="\r")
 
@@ -160,8 +160,8 @@ def optional_argument_maper(given_arguments : list[str]):
 
 # Execute command from name
 def execute_command(input_command: str) -> None:
-    plugins_register = json_edit.read(global_settings["plugins_rgstr_directory"])
-    command_register = json_edit.read(global_settings["commands_rgstr_directory"])
+    plugins_register = json_edit.read(settings["plugins_rgstr_directory"])
+    command_register = json_edit.read(settings["commands_rgstr_directory"])
 
         
     # Get the input data

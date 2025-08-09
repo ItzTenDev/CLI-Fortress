@@ -6,7 +6,7 @@ from files import json_edit
 
 import os
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 
 def __default__(): pass

@@ -4,7 +4,7 @@ from files import json_edit
 import os
 import shutil
 
-global_settings = json_edit.read("data/settings/global_settings.json")
+settings = json_edit.read("data/settings.json")
 
 # Must be in every single command files.
 def export() -> dict:
@@ -19,7 +19,7 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
     essential_plugin_list = ["clif"]
 
     formated_name : str = plugin_name.lower().replace(" ", "_")
-    plugin_directory_path : str = global_settings["plugins_directory"] + (formated_name)
+    plugin_directory_path : str = settings["plugins_directory"] + (formated_name)
 
     if not os.path.exists(plugin_directory_path):
         print_err("CLIF.COMMAND.PLUGIN$DELETE.PLUGIN_PATH_NOT_FOUND", placeholders={"%pack_path%": plugin_directory_path})
