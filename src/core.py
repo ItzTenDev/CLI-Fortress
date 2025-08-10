@@ -1,7 +1,8 @@
 from terminal import *
 from style import *
 from files import json_edit
-from uninstall import uninstall
+
+import os, subprocess
 
 
 # Modules imports
@@ -131,7 +132,10 @@ def main(exec_time: float = 0, original_directory: str = ""):
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()
-        if input_command == "$$uninstall" and uninstall_safe: run_command("python -m uninstall")
+        if input_command == "$$uninstall" and uninstall_safe: 
+            subprocess.Popen(['python', os.path.join(os.environ['LOCALAPPDATA'], 'CLI-Fortress-Uninstall', 'clif_uninstall.py')])
+            
+            
 
         # Execution
         err = True
