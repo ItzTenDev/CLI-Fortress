@@ -122,11 +122,15 @@ def main(exec_time: float = 0, original_directory: str = ""):
         match selection:
             case "Run Command": input_command = input_bar.suggest()
             case "Configuration": exit()
-            case "Exit CLIF": exit()
+            case "Exit CLIF": 
+                run_command("deactivate")
+                exit()
         
 
         if input_command == "" or input_command.startswith(" "): continue
-        if input_command == "exit": exit()
+        if input_command == "exit": 
+            run_command("deactivate")
+            exit()
 
 
         # Execution
