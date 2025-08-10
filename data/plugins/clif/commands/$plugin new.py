@@ -35,7 +35,9 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
         "name": plugin_name,
         "prefix": prefix,
         "description": description,
-        "author": "Whatever"
+        "author": ["Whatever"],
+        "version": "1.0.0",
+        "id": formated_name.replace("-", "_")
         }
 
     json_edit.write(plugin_directory_path + "/data.json", default_data)

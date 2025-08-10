@@ -35,3 +35,4 @@ def execute(req_args : list[str], opt_args : dict = {}, suplementary : dict = {}
         return
     
     printf(f"§2█ §fThe plugin §a§n{plugin_name} §r§fhas successfully been deleted from CLIF !")
+    

@@ -3,11 +3,11 @@ from terminal import *
 
 settings = json_edit.read("data/settings.json")
 
-commands_register = json_edit.read(settings["commands_rgstr_directory"])
-plugins_register = json_edit.read(settings["plugins_rgstr_directory"])
-
 
 def fetch() -> list[str]:
+    commands_register = json_edit.read(settings["commands_rgstr_directory"])
+    plugins_register = json_edit.read(settings["plugins_rgstr_directory"])
+    
     autocomplete_fetch = []
 
     # We register first the plugin prefix, because maybe the user only wants to write the plugin prefix and not a full command
@@ -40,3 +40,12 @@ def fetch() -> list[str]:
     # command : plugins_register["__data__"][Pathload.split(".")[2]]["prefix"] + " " + Pathload.split(".")[4]
 
     return autocomplete_fetch
+
+
+def register() -> None:
+    autocompletion = fetch()
+    output = {"__HAG__": autocompletion}
+
+    
+    json_edit.write(settings["autocomplete_rgstr_directory"], output)
+    return None

@@ -85,8 +85,11 @@ def main(exec_time: float = 0, original_directory: str = ""):
     # Handling events and commmands
     plugin_handler.register_plugins([])
     command_handler.register_commands([])
-    
-    autocomplete_finder = autocomplete_handler.fetch()
+    autocomplete_handler.register()
+
+    time.sleep(0.2)
+
+    autocomplete_finder = json_edit.read(settings["autocomplete_rgstr_directory"])["__HAG__"]
 
     default_suggestion_list = ["exit"] + autocomplete_finder
 
@@ -113,24 +116,18 @@ def main(exec_time: float = 0, original_directory: str = ""):
 
         clif_display()
         # Terminal Styling
-        
-        
-
+        #         
         input_command = ""
         selection = select_menu.suggest()
 
         match selection:
             case "Run Command": input_command = input_bar.suggest()
             case "Configuration": exit()
-            case "Exit CLIF": 
-                run_command("deactivate")
-                exit()
+            case "Exit CLIF": exit()
         
 
         if input_command == "" or input_command.startswith(" "): continue
-        if input_command == "exit": 
-            run_command("deactivate")
-            exit()
+        if input_command == "exit": exit()
 
 
         # Execution
