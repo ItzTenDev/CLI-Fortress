@@ -134,6 +134,7 @@ def main(exec_time: float = 0, original_directory: str = ""):
         if input_command == "exit": exit()
         if input_command == "$$uninstall" and uninstall_safe: 
             subprocess.Popen(['python', os.path.join(os.environ['LOCALAPPDATA'], 'CLI-Fortress-Uninstall', 'clif_uninstall.py')])
+            exit()
             
             
 
