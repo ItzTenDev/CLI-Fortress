@@ -51,7 +51,6 @@ def uninstall():
         print("Launcher batch file not found.")
 
     print("Uninstallation complete.")
-    exit()
 
 if __name__ == "__main__":
     uninstall()

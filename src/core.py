@@ -131,8 +131,9 @@ def main(exec_time: float = 0, original_directory: str = ""):
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()
-        if input_command == "$$uninstall" and uninstall_safe: uninstall()
-
+        if input_command == "$$uninstall" and uninstall_safe: 
+            uninstall()
+            exit()
 
         # Execution
         err = True
