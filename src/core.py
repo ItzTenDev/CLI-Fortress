@@ -78,8 +78,10 @@ def clif_display():
     printf("\n\n".join(pin_display(pin_stack, 5)) + "\n", False)
 
 
-def main(exec_time: float = 0):
+def main(exec_time: float = 0, original_directory: str = ""):
     
+    cd = original_directory
+
     # Handling events and commmands
     plugin_handler.register_plugins([])
     command_handler.register_commands([])
@@ -110,7 +112,6 @@ def main(exec_time: float = 0):
     while True:
 
         clif_display()
-
         # Terminal Styling
         
         

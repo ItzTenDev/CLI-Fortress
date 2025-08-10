@@ -1,12 +1,14 @@
 <img width="1758" height="334" alt="image" src="https://github.com/user-attachments/assets/69d40654-62a8-4483-b46b-2376ce7adb1d" />
 
+A simple and easy to use tool to create your own terminal environement.
+
 # Introduction
 
-CLI are fun, holding in all the power of your computer behind lines of text. We often need CLIs to do basic projects that do not require a big GUI. However, coding a command handler as well a pretty interface is often... Time consuming. Which is why I created CLIF, a CLI tool that allows you to instantly create custom commands, plugins and CLI Apps without leaving you terminal. In addition to that, if you feel limited by the Engine, you can even simply open your project in your favorite code editor and tweak whatever you want directly.
+CLI are cool. Controlling your whole computer using just letters looks fun. However, I've always found it pretty *hard* to make custom commands. I mean, I did try to make bat files ect. But I never had a way to instantly setup a command to a "command database" to be able to execute it with a simple word. Plus, I always needed to code theses using the batch script language which is not always intuitive or very accessible. That is why I created CLIF, a basic tool that allows you to create custom commands, plugins, apps (cli apps), all in one place and using a language that is accessible to everyone : Python.
 
-My goal behind this framework is to allow user to style the terminal more easily. Modules like `curses` or `blessed` are sometimes a bit confusing, but tools like `prompt-toolkit` allows you to do a lot of things more easily but without enough customization except for few colors here and there. That is why my framework is here, each package and module has a clear goal and usage to allow you to do a lot of things the way you want it.
+My goal behind this tool is to allow user to style the terminal more easily while also making his command, some people likes when something works but everyone loves when it works AND it is pretty. Packages like `curses` or `blessed` are sometimes a bit confusing and not very intuitive, even somethings like `prompt-toolkit` allows you to do a lot of things more easily but without enough customization except for few colors here and there.
 
-Any CLI lover can contribute, even if it is by coding a plugin, a module, a package, anything that gives more freedom over the terminal, without making overwhelming function that has 30 parameters.
+Anyone can contribute (which explains why I made it in Python), even if it is by coding a plugin, a module, a package, anything that gives more freedom to user in order to let them code more commands, without making overwhelming function that has 30 parameters.
 
 ---
 

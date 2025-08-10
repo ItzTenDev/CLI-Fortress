@@ -5,7 +5,7 @@ from files import json_edit
 
 import os
 
-presets = json_edit.read(str(os.getenv("PYTHONPATH", "./src/packages")).replace("./", "") + f"/style/data/presets.json")
+presets = json_edit.read(f"src/packages/style/data/presets.json")
 
 
 # PINS - v1.0.0

@@ -7,7 +7,7 @@ from blessed import Terminal
 
 
 
-FONT = json_edit.read(str(os.getenv("PYTHONPATH", "./src/packages")).replace("./", "") + f"/terminal/data/fonts.json")["clif.default"]
+FONT = json_edit.read(f"src/packages/terminal/data/fonts.json")["clif.default"]
 term = Terminal()
 
 

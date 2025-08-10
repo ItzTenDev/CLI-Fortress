@@ -1,14 +1,10 @@
 @echo off
-REM ====== CLI-Fortress Windows Launcher ======
-setlocal
+set "ORIGINAL_DIR=%CD%"
+cd /d "%~dp0"
 
-REM Add src/packages to PYTHONPATH
-set PYTHONPATH=%~dp0src\packages
+set PYTHONPATH=%CD%\src\packages
+set PYTHONPYCACHEPREFIX=%CD%\.pycache
 
-REM Redirect __pycache__ to project-level folder
-set PYTHONPYCACHEPREFIX=%~dp0.pycache
+python -m clif "%ORIGINAL_DIR%"
 
-REM Run main module
-python -m clif
-
-endlocal
+cd /d "%ORIGINAL_DIR%"
