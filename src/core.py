@@ -1,6 +1,7 @@
 from terminal import *
 from style import *
 from files import json_edit
+from uninstall import uninstall
 
 
 # Modules imports
@@ -91,7 +92,7 @@ def main(exec_time: float = 0, original_directory: str = ""):
 
     autocomplete_finder = json_edit.read(settings["autocomplete_rgstr_directory"])["__HAG__"]
 
-    default_suggestion_list = ["exit"] + autocomplete_finder
+    default_suggestion_list = ["exit", "$$uninstall"] + autocomplete_finder
 
 
     select_menu = OptionStack("OPTIONS", [
@@ -112,6 +113,8 @@ def main(exec_time: float = 0, original_directory: str = ""):
         decorator=f"§8{completion_time:.2f}s"
     )
 
+    uninstall_safe = True
+
     while True:
 
         clif_display()
@@ -128,6 +131,7 @@ def main(exec_time: float = 0, original_directory: str = ""):
 
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()
+        if input_command == "$$uninstall" and uninstall_safe: uninstall()
 
 
         # Execution
