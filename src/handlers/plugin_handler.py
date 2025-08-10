@@ -25,7 +25,6 @@ def pathfetch(exceptions: list[str] = []) -> dict:
 
         if 'data.json' in file_names: # This means that a plugin DATA has been found.
             plugin_data = json_edit.read(dir_path + '/data.json')  
-            print(plugin_data)
             if plugin_data["name"] in exceptions: continue
             
             pathfetch_output["__data__"][plugin_data["id"]] = plugin_data
