@@ -17,12 +17,12 @@ def uninstall():
     except Exception as e: 
         print(f"Error removing clif.bat : {e}")
 
-    print("Removing CLIF tool...")
+    print("Removing CLIF tool root...")
     try:
         os.rmdir(INSTALL_DIR)
     except Exception as e: 
-        print(f"Error removing clif.bat : {e}")
-        
+        print(f"Error removing the Tool root : {e}")
+
     exit()
     
 
