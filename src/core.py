@@ -2,7 +2,7 @@ from terminal import *
 from style import *
 from files import json_edit
 
-import os, subprocess
+import os, subprocess, sys
 
 
 # Modules imports
@@ -50,6 +50,16 @@ exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 # 
 # You need to have NerdFont installed. Of course, no need to install it for your whole PC. Just apply to the terminal at least.
 # If you're on VSCode, you need to set the "Terminal > Intergrated: Minimum Contrast Ratio" to 1, later if you want you can set it to 4.5
+
+
+def uninstall():
+    uninstall_script = os.path.join(
+        os.environ["LOCALAPPDATA"], 
+        "CLI-Fortress-Uninstall", 
+        "clif_uninstall.py"
+    )
+
+    subprocess.Popen([sys.executable, uninstall_script])
 
 
 def clif_display():
@@ -133,7 +143,7 @@ def main(exec_time: float = 0, original_directory: str = ""):
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()
         if input_command == "$$uninstall" and uninstall_safe: 
-            subprocess.Popen(['python', os.path.join(os.environ['LOCALAPPDATA'], 'CLI-Fortress-Uninstall', 'clif_uninstall.py')])
+            uninstall()
             exit()
             
             
