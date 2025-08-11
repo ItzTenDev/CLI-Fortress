@@ -1,8 +1,0 @@
-[project]
-name = "clif"
-version = "1.0.0"
-description = "CLI Fortress"
-requires-python = ">=3.8"
-
-[project.scripts]
-clif = "clif:main"

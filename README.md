@@ -10,7 +10,12 @@ My goal behind this tool is to allow user to style the terminal more easily whil
 
 Anyone can contribute (which explains why I made it in Python), even if it is by coding a plugin, a module, a package, anything that gives more freedom to user in order to let them code more commands, without making overwhelming function that has 30 parameters.
 
----
+# How to install
+
+Go to the release seciton and download the python installer. Once downloaded, just double click on it to run it in python (if python is not set as the default opener for .py file, do it manually by right clicking and pressing "open with" and then python).
+
+For now, the tool is only available on Windows.
+After the installation is complete, you can run the tool by just typing `clif` in your terminal.
 
 ## Newest Features
 
