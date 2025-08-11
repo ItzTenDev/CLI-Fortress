@@ -59,8 +59,9 @@ def uninstall():
     print("     \033[38;2;136;136;136mNote that this action is definitive and cannot be undone.")
     print("     \033[38;2;136;136;136mIt is strongly recommended to create a backup of your data before proceeding.")
     print("     \033[38;2;136;136;136mThe tool will be completely wiped out and will not keep your data unless your keep a backup of it.")
-    match input("\033[0mAre you sure you want to continue ? (type YES exactly to proceed) :"):
-        case "YES": 
+    print()
+    match input("\033[0mAre you sure you want to continue ? (type CLIF exactly to proceed) :"):
+        case "CLIF": 
             uninstall_script = os.path.join(os.environ["LOCALAPPDATA"], "CLI-Fortress", "src", "essentials", "uninstall.py")
             subprocess.Popen(["python", uninstall_script])
             exit()
@@ -126,7 +127,7 @@ def main(exec_time: float = 0, original_directory: str = ""):
         prompt=f'{exec_symbol} ',
         color="$clif.lav",
         autocomplete=default_suggestion_list,
-        decorator=f"§8{completion_time:.2f}s"
+        decorator=f"§8develop"
     )
 
     uninstall_safe = True

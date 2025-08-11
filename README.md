@@ -17,6 +17,11 @@ Go to the release seciton and download the python installer. Once downloaded, ju
 For now, the tool is only available on Windows.
 After the installation is complete, you can run the tool by just typing `clif` in your terminal.
 
+# How to uninstall
+
+Simply open the tool with `clif` and open the command line menu and type the command `$$uninstall`
+The current process is pretty messy. But it will get better on next update.
+
 ## Newest Features
 
 > This section will be modified each time there is a new thing. It won't show every single feature, just the new ones.
