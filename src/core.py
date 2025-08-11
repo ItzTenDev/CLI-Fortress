@@ -54,7 +54,7 @@ exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 
 def uninstall():
     uninstall_path = os.path.join(
-        os.path.dirname(__file__), "src", "essentials", "uninstall.py"
+        os.path.dirname(__file__), "essentials", "uninstall.py"
     )
     subprocess.Popen([sys.executable, uninstall_path])
     sys.exit()  # Immediately quit the main tool
