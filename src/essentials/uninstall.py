@@ -11,7 +11,7 @@ self_file = os.path.abspath(__file__)
 def bar(done, total, length=40):
     pct = done / total
     filled = int(length * pct)
-    sys.stdout.write(f"\r[{ '█' * filled + '-' * (length - filled) }] {pct*100:.1f}%")
+    sys.stdout.write(f"\rProgress: { '\033[38;2;198;175;255m█' * filled + '\033[38;2;136;136;136m-\033[0m' * (length - filled) } {pct*100:.1f}%")
     sys.stdout.flush()
 
 def run_global():
@@ -20,6 +20,7 @@ def run_global():
         sys.exit()
 
 def uninstall():
+
     launcher = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Microsoft", "WindowsApps", "clif.bat")
     if os.path.exists(launcher):
         try: os.remove(launcher)
@@ -47,7 +48,7 @@ def uninstall():
                 except: pass
                 done += 1; bar(done, total)
 
-    bat = os.path.join(os.environ["TEMP"], "uninstall_tmp.bat")
+    bat = os.path.join(os.environ["TEMP"], "uninstall_tmp.bat") # Temporary bat because uninstall.py needs to delete ITSELF, duh.
     with open(bat, "w") as f:
         f.write(f'timeout /t 1 >nul\n'
                 f'del "{self_file}" >nul 2>&1\n'
@@ -61,5 +62,14 @@ def uninstall():
     print("\nDone.")
 
 if __name__ == "__main__":
-    run_global()
-    uninstall()
+    
+    print("\033[38;2;198;175;255mUNINSTALLING CLI-FORTRESS\033[0m")
+    print("\033[38;2;136;136;136mNote that this action is definitive and cannot be undone.")
+    print("\033[38;2;136;136;136mIt is strongly recommended to create a backup of your data before proceeding.")
+    print("\033[38;2;136;136;136mThe tool will be completely wiped out and will not keep your data unless your keep a backup of it.")
+    match input("\033[0mAre you sure you want to continue ? (type YES exactly to proceed) :"):
+        case "YES": 
+            run_global()
+            uninstall()
+    
+    exit()
