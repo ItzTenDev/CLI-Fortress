@@ -1,8 +1,0 @@
-{
-    "__list__": [
-        "data.commands_pck.clif",
-        "data.commands_pck.test_bi"
-    ],
-    "clif": "data.commands_pck.clif",
-    "test-bi": "data.commands_pck.test_bi"
-}

@@ -1,32 +1,35 @@
-# CLI-Fortress
+<img width="1758" height="334" alt="image" src="https://github.com/user-attachments/assets/69d40654-62a8-4483-b46b-2376ce7adb1d" />
 
-> A little OS in your terminal.
+A simple and easy to use tool to create your own terminal environement.
 
-I’ve always found command-line interfaces (CLIs) super fun and cool.
-So I decided to build my own little "OS" kind of CLI — just for fun. It’s not a real operating system (obiously), but more of a simulation, like... Kind of Lazyvim vibes in terms of design.
-I just think that CLIs are so fun, like... Trying hard to make a good looking thing only using characters, that sound already super cool.
+# Introduction
 
-The idea behind this thing is to make something very **modular**. What i mean is that, you can add your own little tweaks to it, and it will handle the loading of those plugins/app by it self.
-You don't have to recode the entire thing or hard-code your tweak inside the program, you just code your external program with some little mendatory files, and the CLI would recognize those.
+CLI are cool. Controlling your whole computer using just letters looks fun. However, I've always found it pretty *hard* to make custom commands. I mean, I did try to make bat files ect. But I never had a way to instantly setup a command to a "command database" to be able to execute it with a simple word. Plus, I always needed to code theses using the batch script language which is not always intuitive or very accessible. That is why I created CLIF, a basic tool that allows you to create custom commands, plugins, apps (cli apps), all in one place and using a language that is accessible to everyone : Python.
 
-Please, if you want to code your own app/plugin, please do, but try to not come out of the main idea : CLI.
-It would be wierd to used tKinter for a CLI for example. But it is up to you. What could be fun is opening other CLIs as sort of "windows". That must be sick.
+My goal behind this tool is to allow user to style the terminal more easily while also making his command, some people likes when something works but everyone loves when it works AND it is pretty. Packages like `curses` or `blessed` are sometimes a bit confusing and not very intuitive, even somethings like `prompt-toolkit` allows you to do a lot of things more easily but without enough customization except for few colors here and there.
 
----
+Anyone can contribute (which explains why I made it in Python), even if it is by coding a plugin, a module, a package, anything that gives more freedom to user in order to let them code more commands, without making overwhelming function that has 30 parameters.
+
+# How to install
+
+Go to the release seciton and download the python installer. Once downloaded, just double click on it to run it in python (if python is not set as the default opener for .py file, do it manually by right clicking and pressing "open with" and then python).
+
+For now, the tool is only available on Windows.
+After the installation is complete, you can run the tool by just typing `clif` in your terminal.
+
+# How to uninstall
+
+Simply open the tool with `clif` and open the command line menu and type the command `$$uninstall`
+The current process is pretty messy. But it will get better on next update.
 
 ## Newest Features
 
 > This section will be modified each time there is a new thing. It won't show every single feature, just the new ones.
 
-So for now, it mostly has a command line system, which is the global thing, you can create custom commands and all. However, i need to create some global command system, like `[system/plugin] [command]` instead of directly having the command.
-You can go to `src/commands/your_category/...` and add a `custom.py` command. DO NOT, give command names that already exist, and you MUST follow the constructor syntax with the `export()` function.
-
-I think the next thing i will add soon is a "root command" property so we can add that `[system/plugin] [command]` thingy.
+Now, you can run clif directly from your terminal using the command "clif" which will activate some environement vaariable for using some packages more quickly.
 
 ---
 
 ## Other Files
 
 [Documentation](docs/DOCUMENTATION.md) - SOON
-
-[TO-DO](TODO.md)

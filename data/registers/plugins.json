@@ -1,0 +1,34 @@
+{
+    "__list__": [
+        "data.plugins.clif",
+        "data.plugins.fun_knee"
+    ],
+    "__prefix__": {
+        "clif": "data.plugins.clif",
+        "FK": "data.plugins.fun_knee"
+    },
+    "__data__": {
+        "clif": {
+            "name": "CLI-Fortress",
+            "prefix": "clif",
+            "description": "Some default commands",
+            "author": [
+                "ItzTen"
+            ],
+            "id": "clif",
+            "version": "1.0.0",
+            "file": "data/plugins/clif"
+        },
+        "fun_knee": {
+            "name": "Fun-Knee",
+            "prefix": "FK",
+            "description": "Some random commands",
+            "author": [
+                "ItzTen"
+            ],
+            "id": "fun_knee",
+            "version": "1.0.0",
+            "file": "data/plugins/fun_knee"
+        }
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "plugins_directory": "data/plugins/",
+  "registers_directory": "data/registers/",
+  "apps_directory": "data/apps/",
+
+  "commands_rgstr_directory": "data/registers/commands.json",
+  "plugins_rgstr_directory": "data/registers/plugins.json",
+  "events_rgstr_directory": "data/registers/events.json",
+  "autocomplete_rgstr_directory": "data/registers/autocomplete.json",
+
+  "messages_err_directory": "data/messages/errors.json",
+  "messages_info_directory": "data/messages/info.json",
+  "messages_warn_directory": "data/messages/warnings.json",
+  "messages_success_directory": "data/messages/success.json",
+
+  "__execution.display.data__": {
+    "name": "CLI-FORTRESS",
+    "subtitle": "© 2025 - Command Line Interface Fortress",
+    "description": "A command line interface for managing and executing commands, plugins, and applications.",
+    "license": "MIT",
+    "git_repository": "https.github.com/ItzTen/CLI-Fortress",
+    "version": "1.0.0",
+    "authors": [
+      "ItzTen",
+      "Wiliwow"
+    ],
+    "prefix_symbol": "> $clif.lavCommand"
+  },
+  
+  "__execution.display.config__": {
+    "display_name": true,
+    "display_subtitle": true,
+    "display_description": true,
+    "display_license": true,
+    "display_git_repository": true,
+    "display_version": true,
+    "display_authors": true,
+    "display_prefix_symbol": true,
+    "display_handlers_log": true
+  }
+}

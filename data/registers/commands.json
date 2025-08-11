@@ -1,106 +1,66 @@
 {
-    "data.commands_pck.clif.commands.clear": {
-        "name": "clear",
+    "data.plugins.clif.commands.clear": {
         "description": "Executes the cls command in command prompt.",
         "args": [],
-        "usage": "clear",
+        "sub_commands": {},
         "permission": 0
     },
-    "data.commands_pck.clif.commands.cli": {
-        "name": "cos",
-        "description": "I allow you change properties of the CLI",
-        "args": [
-            "sub-command",
-            "args..."
-        ],
-        "usage": "cos <sub-command> <args...>",
-        "permission": 0
-    },
-    "data.commands_pck.clif.commands.help": {
-        "name": "help",
-        "description": "allow you to see infos about commands",
-        "args": [
-            "command"
-        ],
-        "usage": "help <command>",
-        "permission": 0
-    },
-    "data.commands_pck.clif.commands.info": {
-        "name": "info",
+    "data.plugins.clif.commands.ping": {
         "description": "I return pong as fast as possible !",
-        "args": [],
-        "usage": "info",
-        "permission": 0
-    },
-    "data.commands_pck.clif.commands.process": {
-        "name": "process",
-        "description": "I get acess to every control of the current process of the CLI !",
         "args": [
-            "sub_command"
+            "r:message"
         ],
-        "usage": "process <sub_command>",
+        "sub_commands": {},
         "permission": 0
     },
-    "data.commands_pck.test_bi.commands.circle": {
-        "name": "circle",
-        "description": "I allow you to draw a circle !",
+    "data.plugins.clif.commands.plugin": {
+        "description": "Executes the cls command in command prompt.",
         "args": [
-            "radius",
-            "thickness"
+            "r:pancakes"
         ],
-        "usage": "circle <radius> <thickness>",
+        "sub_commands": {
+            "new": {
+                "description": "Create a new plugin template",
+                "args": [
+                    "o:--name",
+                    "o:--description"
+                ],
+                "permission": 0,
+                "pathload_name": "$plugin new"
+            },
+            "delete": {
+                "description": "Deletes an existing plugin permanently",
+                "args": [
+                    "r:name"
+                ],
+                "permission": 0,
+                "pathload_name": "$plugin delete"
+            },
+            "help": {
+                "description": "Check informations about a plugin's command",
+                "args": [
+                    "r:plugin",
+                    "o:--command",
+                    "o:--c"
+                ],
+                "permission": 0,
+                "pathload_name": "$plugin help"
+            }
+        },
         "permission": 0
     },
-    "data.commands_pck.test_bi.commands.colors": {
-        "name": "colors",
+    "data.plugins.fun_knee.commands.colors": {
         "description": "I allow you to check colors display !",
         "args": [],
-        "usage": "colors",
+        "sub_commands": {},
         "permission": 0
     },
-    "data.commands_pck.test_bi.commands.diagram": {
-        "name": "diagram",
-        "description": "I allow you to draw a circle !",
-        "args": [
-            "LETTER:VALUE"
-        ],
-        "usage": "diagram <LETTER:VALUE>",
-        "permission": 0
-    },
-    "data.commands_pck.test_bi.commands.hello": {
-        "name": "hello",
-        "description": "I say hello !",
-        "args": [],
-        "usage": "hello",
-        "permission": 0
-    },
-    "data.commands_pck.test_bi.commands.jdl": {
-        "name": "game-jdl",
-        "description": "Start a game of the Jeu de l'oie",
-        "args": [
-            "players",
-            "dice(s)",
-            "dice_faces"
-        ],
-        "usage": "game-jdl <players> <dice(s)> <dice_faces>",
-        "permission": 0
-    },
-    "data.commands_pck.test_bi.commands.ping": {
-        "name": "ping",
-        "description": "I return pong as fast as possible !",
-        "args": [
-            "message"
-        ],
-        "usage": "ping <message>",
-        "permission": 0
-    },
-    "data.commands_pck.test_bi.commands.yipee": {
-        "name": "yipee",
+    "data.plugins.fun_knee.commands.yipee": {
         "description": "Be proud of yourself !",
         "args": [
-            "hapiness level"
+            "r:hapiness level"
         ],
-        "usage": "yipee <hapiness level>",
+        "sub_commands": {},
         "permission": 0
     }
 }

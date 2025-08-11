@@ -1,0 +1,6 @@
+{
+    "terminal.integrated.env.windows": {
+        "PYTHONPYCACHEPREFIX": "${workspaceFolder}\\.pycache"
+    },
+    "python.envFile": "${workspaceFolder}\\.env"
+}
