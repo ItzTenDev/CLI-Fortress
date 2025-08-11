@@ -5,5 +5,5 @@ description = "CLI Fortress"
 requires-python = ">=3.8"
 
 [project.scripts]
-clif = ".:main"
+clif = "src.core:main"
 
