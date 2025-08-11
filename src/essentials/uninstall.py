@@ -11,7 +11,7 @@ self_file = os.path.abspath(__file__)
 def bar(done, total, length=40):
     pct = done / total
     filled = int(length * pct)
-    sys.stdout.write(f"\rProgress: { '\033[38;2;198;175;255m█' * filled + '\033[38;2;136;136;136m-\033[0m' * (length - filled) } {pct*100:.1f}%")
+    sys.stdout.write(f"\rProgress: { '\033[38;2;198;175;255m█' * filled + '\033[38;2;136;136;136m-' * (length - filled) }\033[0m {pct*100:.1f}%")
     sys.stdout.flush()
 
 def run_global():
