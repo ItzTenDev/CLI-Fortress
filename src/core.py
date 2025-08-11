@@ -53,12 +53,9 @@ exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 
 
 def uninstall():
-    uninstall_path = os.path.join(
-        os.path.dirname(__file__), "essentials", "uninstall.py"
-    )
-    subprocess.run(["python", uninstall_path])
+    uninstall_script = os.path.join(os.environ["LOCALAPPDATA"], "CLI-Fortress", "src", "essentials", "uninstall.py")
+    subprocess.Popen(["python", uninstall_script])
     exit()
-    sys.exit()  # Immediately quit the main tool
 
 
 def clif_display():
