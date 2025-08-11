@@ -1,8 +1,8 @@
 import src.core as Core
 import sys, os, time
 
-if __name__ == "__main__": 
-
+def main():
+    
     if len(sys.argv) > 1:
         original_dir = sys.argv[1]
     else:
@@ -13,3 +13,7 @@ if __name__ == "__main__":
     # sys.stdout.write("\x1b[8;{rows};{cols}t".format(rows=30, cols=130))
 
     Core.main(time.time(), original_dir)
+
+if __name__ == "__main__": 
+
+    main()
