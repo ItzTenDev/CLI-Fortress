@@ -1,30 +1,61 @@
 import os
 import shutil
 import sys
-import tempfile
-import time
 import subprocess
 
-INSTALL_DIR = os.path.join(os.environ.get("LOCALAPPDATA", os.path.expanduser("~")), "CLI-Fortress")
-WINDOWS_APPS = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Microsoft", "WindowsApps")
+install_dir = os.path.join(os.environ["LOCALAPPDATA"], "CLI-Fortress")
+essentials_dir = os.path.join(install_dir, "src", "essentials")
+self_file = os.path.abspath(__file__)
 
+def bar(done, total, length=40):
+    pct = done / total
+    filled = int(length * pct)
+    sys.stdout.write(f"\r[{ '█' * filled + '-' * (length - filled) }] {pct*100:.1f}%")
+    sys.stdout.flush()
+
+def restart_if_venv():
+    if "venv" in sys.executable.lower() or "scripts" in sys.executable.lower():
+        subprocess.Popen([r"C:\Windows\py.exe", self_file])
+        sys.exit()
 
 def uninstall():
-    print("Uninstalling CLIF...")
-    print("Removing clif.bat...")
-    try: 
-        os.remove(os.path.join(WINDOWS_APPS, "clif.bat"))
-    except Exception as e: 
-        print(f"Error removing clif.bat : {e}")
+    launcher = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Microsoft", "WindowsApps", "clif.bat")
+    if os.path.exists(launcher):
+        try: os.remove(launcher)
+        except: pass
 
-    print("Removing CLIF tool root...")
-    try:
-        os.rmdir(INSTALL_DIR)
-    except Exception as e: 
-        print(f"Error removing the Tool root : {e}")
+    total = sum(len(files) for _, _, files in os.walk(install_dir)) or 1
+    done = 0
 
-    exit()
-    
+    for root, dirs, files in os.walk(install_dir, topdown=False):
+        if os.path.abspath(root) == os.path.abspath(essentials_dir):
+            continue
+        for f in files:
+            try: os.remove(os.path.join(root, f))
+            except: pass
+            done += 1; bar(done, total)
+        for d in dirs:
+            shutil.rmtree(os.path.join(root, d), ignore_errors=True)
+
+    if os.path.exists(essentials_dir):
+        for f in os.listdir(essentials_dir):
+            path = os.path.join(essentials_dir, f)
+            if os.path.abspath(path) != self_file:
+                try:
+                    os.remove(path) if os.path.isfile(path) else shutil.rmtree(path, ignore_errors=True)
+                except: pass
+                done += 1; bar(done, total)
+
+    bat = os.path.join(os.environ["TEMP"], "uninstall_tmp.bat")
+    with open(bat, "w") as f:
+        f.write(f'timeout /t 1 >nul\n'
+                f'del "{self_file}" >nul 2>&1\n'
+                f'rmdir /s /q "{install_dir}" >nul 2>&1\n')
+    subprocess.Popen(["cmd", "/c", bat], creationflags=subprocess.CREATE_NO_WINDOW)
+
+    bar(total, total)
+    print("\nDone.")
 
 if __name__ == "__main__":
+    restart_if_venv()
     uninstall()

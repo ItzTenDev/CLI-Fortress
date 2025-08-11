@@ -53,26 +53,12 @@ exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 
 
 def uninstall():
-    # Path to the actual uninstall.py inside essentials
     uninstall_path = os.path.join(
-        os.path.dirname(__file__),
-        "essentials",
-        "uninstall.py"
+        os.path.dirname(__file__), "essentials", "uninstall.py"
     )
-
-    # Try to find a system Python outside the venv
-    if sys.prefix != sys.base_prefix:
-        # We're in a venv → use base interpreter
-        system_python = sys.executable.replace(
-            os.path.join("Scripts", "python.exe"), 
-            "python.exe"
-        ) if os.name == "nt" else "python3"
-    else:
-        # Not in venv
-        system_python = sys.executable
-
-    # Launch the external process
-    subprocess.Popen([system_python, uninstall_path])
+    subprocess.run(["python", uninstall_path])
+    exit()
+    sys.exit()  # Immediately quit the main tool
 
 
 def clif_display():
