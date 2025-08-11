@@ -53,13 +53,11 @@ exec_symbol = settings["__execution.display.data__"]["prefix_symbol"]
 
 
 def uninstall():
-    uninstall_script = os.path.join(
-        os.environ["LOCALAPPDATA"], 
-        "CLI-Fortress-Uninstall", 
-        "clif_uninstall.py"
+    uninstall_path = os.path.join(
+        os.path.dirname(__file__), "src", "essentials", "uninstall.py"
     )
-
-    subprocess.Popen([sys.executable, uninstall_script])
+    subprocess.Popen([sys.executable, uninstall_path])
+    sys.exit()  # Immediately quit the main tool
 
 
 def clif_display():
@@ -143,8 +141,8 @@ def main(exec_time: float = 0, original_directory: str = ""):
         if input_command == "" or input_command.startswith(" "): continue
         if input_command == "exit": exit()
         if input_command == "$$uninstall" and uninstall_safe: 
-            uninstall()
-            exit()
+            choice = input("Do you want to uninstall CLI-Fortress? (y/n) ")
+            if choice.lower().startswith("y"): uninstall(); exit()
             
             
 
