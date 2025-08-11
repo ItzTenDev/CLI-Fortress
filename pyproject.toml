@@ -6,3 +6,6 @@ requires-python = ">=3.8"
 
 [project.scripts]
 clif = "clif:main"
+
+[tool.setuptools]
+py-modules = ["clif"]
