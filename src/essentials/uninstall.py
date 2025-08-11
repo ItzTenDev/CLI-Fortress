@@ -2,6 +2,7 @@ import os
 import shutil
 import sys
 import subprocess
+import time
 
 install_dir = os.path.join(os.environ["LOCALAPPDATA"], "CLI-Fortress")
 essentials_dir = os.path.join(install_dir, "src", "essentials")
@@ -13,7 +14,7 @@ def bar(done, total, length=40):
     sys.stdout.write(f"\r[{ '█' * filled + '-' * (length - filled) }] {pct*100:.1f}%")
     sys.stdout.flush()
 
-def restart_if_venv():
+def run_global():
     if "venv" in sys.executable.lower() or "scripts" in sys.executable.lower():
         subprocess.Popen([r"C:\Windows\py.exe", self_file])
         sys.exit()
@@ -51,11 +52,14 @@ def uninstall():
         f.write(f'timeout /t 1 >nul\n'
                 f'del "{self_file}" >nul 2>&1\n'
                 f'rmdir /s /q "{install_dir}" >nul 2>&1\n')
-    subprocess.Popen(["cmd", "/c", bat], creationflags=subprocess.CREATE_NO_WINDOW)
+        
+    time.sleep(0.2)
+
+    subprocess.run([bat], creationflags=subprocess.CREATE_NO_WINDOW)
 
     bar(total, total)
     print("\nDone.")
 
 if __name__ == "__main__":
-    restart_if_venv()
+    run_global()
     uninstall()
