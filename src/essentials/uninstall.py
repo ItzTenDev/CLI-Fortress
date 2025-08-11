@@ -63,12 +63,5 @@ def uninstall():
 
 if __name__ == "__main__":
     run_global()
-    print()
-    print("\033[38;2;198;175;255mUNINSTALLING CLI-FORTRESS\033[0m")
-    print("\033[38;2;136;136;136mNote that this action is definitive and cannot be undone.")
-    print("\033[38;2;136;136;136mIt is strongly recommended to create a backup of your data before proceeding.")
-    print("\033[38;2;136;136;136mThe tool will be completely wiped out and will not keep your data unless your keep a backup of it.")
-    match input("\033[0mAre you sure you want to continue ? (type YES exactly to proceed) :"):
-        case "YES": 
-            uninstall()
+    uninstall()
     
