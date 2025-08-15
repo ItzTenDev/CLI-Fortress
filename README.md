@@ -36,19 +36,21 @@ pip install -r requirements.txt
 
 After this, you have to keep in mind that the keyword "clif" is only available for the **users**, not the developpers. 
 Let's say you have downloaded CLIF from the Github Releases. Now you'd have access to the CLI that is installed as a literal tool you can edit as a user.
-To code thing as a developper, you need to go to the root directory of the fork you've made and run `.\clif/bat` if you're in PowerShell, `clif.bat` if you're on CMD. Theses will set up the environement variables that will make your life so much easier when you code. Because it will:
+MAKE SURE YOU ARE IN THE ROOT DIRECTORY, not outside, not inside a sub directory. Only in the root one you've cloned from your fork.
+
+#### **If you are not coding on VS Code, do this:**
+To code thing as a developper, you need to go to the root directory of the fork you've made and run `.\src\essentials\clif.bat` if you're in PowerShell, `src/essentials/clif.bat` if you're on CMD. Theses will set up the environement variables that will make your life so much easier when you code. Because it will:
 - Set `src/packages` as a library, so you can access its packages and modules from ANYWHERE without having to type an entire path to get those.
 - Set `.pycache` as a `__pycache__` "collector", making it easier for you to read your file tree.
 
-Of course, `clif.py` already does that first point, however, somtimes Windows just hate you, so it doesn't work. This ensure a sort of... Double check, if Windows do not do it, python will. If python doesn't, MAYBE Windows will.
-
-Anyway, after this you can simply make PRs and yeah that's it.
-What you should keep in mind is that `clif` does NOT execute the developper CLI, it executes (if installed) the user CLI.
-Even thought there is an exception : If you are coding on VS Code. Thanks to the .vscode directory, all theses variables stuff will be done in the editor itself. Therefore you will be able to run it through :
+#### **If you are on VS Code:**
+You can, if everything works well, just run the CLI using:
 ```shell
 python -m clif
 ```
-If everything works correctly.
+
+Anyway, after this you can simply make PRs and yeah that's it.
+What you should keep in mind is that `clif` does NOT execute the developper CLI, it executes (if installed) the user CLI.
 
 # Dependencies
 
