@@ -1,0 +1,15 @@
+
+╭───────────╮   
+│           │   %c%Plugin     :§f %plugin_name% §r
+│           │   %c%File       :§f %plugin_file% §r
+│           │   %c%Author(s)  :§f %plugin_author% §r
+│           │   %c%Prefix     :§f %plugin_prefix% §r
+╰───────────╯   
+   §8v%plugin_version% 
+
+█ §8%description% §r
+
+
+§0█ This command is the default command to see plugins informations. Therefore, it only uses the built-in properties of CLIF. 
+§0█ Feel free to create your own help print which you will soon be able to specify the location in the data.json of your plugins.
+§0█ For now, you can also simply create your own help command. §r

@@ -1,0 +1,4 @@
+{
+  "CLIF_DEFAULT.CMDS_REGISTERED": "§a%registered_cmd_count% §fCommands loaded successfully.",
+  "CLIF_DEFAULT.PLUGINS_REGISTERED": "§a%registered_plugin_count% §fCommand packs loaded successfully."
+}

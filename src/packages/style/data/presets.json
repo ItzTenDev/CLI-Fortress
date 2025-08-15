@@ -1,0 +1,12 @@
+{
+
+    "repo.version"      : [" ", "$clif.bg.d.lav", "§f", "v%github.repo.version%"],
+    "repo.author"       : [" ", "§8db", "§f", "%github.user.name%" ],
+    "repo.stars"        : [" ", "§3b", "§0§l", "%github.repo.stars%"],
+    "repo.licence"      : ["" , "$clif.bg.d.sb", "§f", "%github.repo.license%"],
+    "repo.commits"      : [" ", "§5b", "§f", "%github.repo.commits%"],
+
+    "python.version"    : [" ", "$clif.bg.d.lav", "§f", "%python.version%"],
+    "git.version"       : [" ", "§7b", "§f", "%git.version%"]
+
+}
