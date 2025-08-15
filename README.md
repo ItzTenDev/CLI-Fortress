@@ -22,6 +22,40 @@ After the installation is complete, you can run the tool by just typing `clif` i
 Simply open the tool with `clif` and open the command line menu and type the command `$$uninstall`
 The current process is pretty messy. But it will get better on next update.
 
+# How to contribute
+
+First of all, make sure you have python installed and that your **python is actually registered in the Windows PATH**.
+If not, re install python and make sure to tick the box that allow you to set it as a Windows PATH.
+That ensures that the "python" prefix is not "py" or "py3", which is the prefix used in the core file of the CLI.
+
+Once you've forked and have the repo on your local machine, you need to set up a venv and install the dependencies.
+```shell
+python -m venv venv
+pip install -r requirements.txt
+```
+
+After this, you have to keep in mind that the keyword "clif" is only available for the **users**, not the developpers. 
+Let's say you have downloaded CLIF from the Github Releases. Now you'd have access to the CLI that is installed as a literal tool you can edit as a user.
+To code thing as a developper, you need to go to the root directory of the fork you've made and run `.\clif/bat` if you're in PowerShell, `clif.bat` if you're on CMD. Theses will set up the environement variables that will make your life so much easier when you code. Because it will:
+- Set `src/packages` as a library, so you can access its packages and modules from ANYWHERE without having to type an entire path to get those.
+- Set `.pycache` as a `__pycache__` "collector", making it easier for you to read your file tree.
+
+Of course, `clif.py` already does that first point, however, somtimes Windows just hate you, so it doesn't work. This ensure a sort of... Double check, if Windows do not do it, python will. If python doesn't, MAYBE Windows will.
+
+Anyway, after this you can simply make PRs and yeah that's it.
+What you should keep in mind is that `clif` does NOT execute the developper CLI, it executes (if installed) the user CLI.
+Even thought there is an exception : If you are coding on VS Code. Thanks to the .vscode directory, all theses variables stuff will be done in the editor itself. Therefore you will be able to run it through :
+```shell
+python -m clif
+```
+If everything works correctly.
+
+# Dependencies
+
+You will need to (optionaly) download a NerdFont. Any works as long as you download one. This makes the TUI look cooler.
+Then, sometimes your terminal simply doesn't support this beauty of a CLI (Not targetting VS Code at all).
+So to fix that, either use the default Windows terminal OR another program that seem to work perfectly fine and that also allow you to easily define a terminal font : Windows Terminal (Not default one, the one on Microsoft Store... unfortunately :c)
+
 ## Newest Features
 
 > This section will be modified each time there is a new thing. It won't show every single feature, just the new ones.

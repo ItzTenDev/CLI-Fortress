@@ -1,5 +1,11 @@
-import src.core as Core
 import sys, os, time
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent / "src" / "packages"))
+
+
+import src.core as Core
+
 
 def main():
     
@@ -15,5 +21,4 @@ def main():
     Core.main(time.time(), original_dir)
 
 if __name__ == "__main__": 
-
     main()

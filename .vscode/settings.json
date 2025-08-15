@@ -1,6 +1,9 @@
 {
     "terminal.integrated.env.windows": {
+        
         "PYTHONPYCACHEPREFIX": "${workspaceFolder}\\.pycache"
     },
-    "python.envFile": "${workspaceFolder}\\.env"
+    "python.envFile": "${workspaceFolder}\\.env",
+    "terminal.integrated.allowAnsiEscapeSequences": true,
+    "terminal.integrated.fontFamily": "Cascadia Code"
 }
